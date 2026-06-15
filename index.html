@@ -283,22 +283,114 @@
   /* ─── Полоса с текстом ─── */
   .ticker-bar {
     background: var(--navy);
-    padding: 16px 0;
+    padding: 18px 0;
     overflow: hidden;
     white-space: nowrap;
   }
   .ticker-bar__inner {
     display: inline-flex;
+    align-items: center;
     gap: 0;
-    animation: ticker 30s linear infinite;
+    animation: ticker 36s linear infinite;
   }
   .ticker-bar__item {
     font-size: 10.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-    color: rgba(250,247,242,.6);
-    padding: 0 40px;
+    color: rgba(250,247,242,.5);
+    padding: 0 28px;
+    display: inline-flex; align-items: center; gap: 10px;
   }
-  .ticker-bar__item--gold { color:var(--gold); }
+  .ticker-bar__item--beige  { color: #F0E7DA; }
+  .ticker-bar__item--blue   { color: #BFD5E3; }
+  .ticker-bar__item--gold   { color: var(--gold); }
+  .ticker-bar__item--cream  { color: rgba(250,247,242,.92); }
+  .ticker-bar__item--sep    { color: rgba(250,247,242,.22); font-size:16px; padding: 0 4px; }
+  .ticker-bar__letter {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1;
+    opacity: .85;
+  }
+  .ticker-bar__dash { opacity:.4; margin: 0 4px; }
   @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ─── Для кого v2 ─── */
+  .audience-intro {
+    max-width: 780px;
+    margin: 0 auto 72px;
+    text-align: center;
+  }
+  .audience-intro .label { margin-bottom: 20px; }
+  .audience-intro h2 { color: var(--navy); margin-bottom: 24px; }
+  .audience-intro p {
+    font-size: 16px; color: var(--muted); line-height: 1.82; margin-bottom: 14px;
+  }
+  .audience-intro p:last-child { margin-bottom: 0; }
+  .audience-intro p strong { color: var(--navy); }
+
+  .audience-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .aud-card-v2 {
+    background: var(--white);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid rgba(200,162,122,.16);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow .3s, transform .3s, border-color .3s;
+  }
+  .aud-card-v2:hover {
+    box-shadow: var(--sh-lg);
+    transform: translateY(-4px);
+    border-color: var(--gold);
+  }
+  .aud-card-v2__img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    display: block;
+    transition: transform .5s;
+  }
+  .aud-card-v2:hover .aud-card-v2__img { transform: scale(1.04); }
+  .aud-card-v2__body {
+    padding: 28px 24px 32px;
+    display: flex; flex-direction: column; flex: 1;
+  }
+  .aud-card-v2__body h3 {
+    font-family: var(--serif);
+    font-size: 22px; font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .aud-card-v2__body p {
+    font-size: 14px; color: var(--muted); line-height: 1.72; flex: 1;
+  }
+  .audience-tagline {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(200,162,122,.2);
+  }
+  .audience-tagline p {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.8vw, 34px);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .audience-tagline p em { color: var(--gold); font-style: inherit; }
+
+  @media (max-width:1024px) {
+    .audience-grid-v2 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width:600px) {
+    .audience-grid-v2 { grid-template-columns: 1fr; }
+    .aud-card-v2__img { height: 160px; }
+  }
 
   /* ─── Для кого ─── */
   .audience-grid {
@@ -1054,75 +1146,70 @@
 <!-- ══════════ TICKER ══════════ -->
 <div class="ticker-bar" aria-hidden="true">
   <div class="ticker-bar__inner">
-    <span class="ticker-bar__item ticker-bar__item--gold">Katie Agency</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">AI Media Agency</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item ticker-bar__item--gold">SOUL Method</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">Личный бренд</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item ticker-bar__item--gold">Эксперты мягких ниш</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">Стратегия · Психология · AI · Эстетика</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item ticker-bar__item--gold">Katie Agency</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">AI Media Agency</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item ticker-bar__item--gold">SOUL Method</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">Личный бренд</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item ticker-bar__item--gold">Эксперты мягких ниш</span>
-    <span class="ticker-bar__item">·</span>
-    <span class="ticker-bar__item">Стратегия · Психология · AI · Эстетика</span>
-    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--beige"><span class="ticker-bar__letter">S</span><span class="ticker-bar__dash">—</span>SOUL<span class="ticker-bar__dash">·</span>ДУША И СМЫСЛЫ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--blue"><span class="ticker-bar__letter">O</span><span class="ticker-bar__dash">—</span>ORIGIN<span class="ticker-bar__dash">·</span>ИСТОРИЯ И ОПЫТ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--gold"><span class="ticker-bar__letter">U</span><span class="ticker-bar__dash">—</span>UNIQUENESS<span class="ticker-bar__dash">·</span>УНИКАЛЬНОСТЬ И АУТЕНТИЧНОСТЬ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--cream"><span class="ticker-bar__letter">L</span><span class="ticker-bar__dash">—</span>LAUNCH<span class="ticker-bar__dash">·</span>ПРОЯВЛЕННОСТЬ И ВЛИЯНИЕ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--beige"><span class="ticker-bar__letter">S</span><span class="ticker-bar__dash">—</span>SOUL<span class="ticker-bar__dash">·</span>ДУША И СМЫСЛЫ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--blue"><span class="ticker-bar__letter">O</span><span class="ticker-bar__dash">—</span>ORIGIN<span class="ticker-bar__dash">·</span>ИСТОРИЯ И ОПЫТ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--gold"><span class="ticker-bar__letter">U</span><span class="ticker-bar__dash">—</span>UNIQUENESS<span class="ticker-bar__dash">·</span>УНИКАЛЬНОСТЬ И АУТЕНТИЧНОСТЬ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
+    <span class="ticker-bar__item ticker-bar__item--cream"><span class="ticker-bar__letter">L</span><span class="ticker-bar__dash">—</span>LAUNCH<span class="ticker-bar__dash">·</span>ПРОЯВЛЕННОСТЬ И ВЛИЯНИЕ</span>
+    <span class="ticker-bar__item ticker-bar__item--sep">•</span>
   </div>
 </div>
 
 <!-- ══════════ ДЛЯ КОГО ══════════ -->
 <section class="sec sec--beige">
   <div class="container">
-    <div class="sec__hd fade-in">
+    <div class="audience-intro fade-in">
       <span class="label">Для кого</span>
-      <h2>Помогаем тем, кто несёт глубину</h2>
-      <p>Мы работаем со специалистами помогающих профессий — теми, кто обладает знаниями и талантом, но ещё не научился показать это миру.</p>
+      <h2>Мы работаем с теми, кто меняет жизнь людей</h2>
+      <p>С теми, кто несёт знания, поддержку, осознанность, исцеление и трансформацию.</p>
+      <p>С теми, чья работа меняет жизнь, но её ценность не всегда становится заметной для мира.</p>
+      <p><strong>Наша задача</strong> — помочь вашему пониманию стать видимым, вашей уникальности — узнаваемой, вашему опыту — сильного личного бренда.</p>
+      <p>Чтобы ваши клиенты почувствовали вашу ценность ещё до первой встречи.</p>
     </div>
-    <div class="audience-grid fade-in">
-      <article class="aud-card">
-        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
-          <circle cx="26" cy="18" r="9"/><path d="M8 46c0-9.9 8.1-18 18-18s18 8.1 18 18"/>
-          <path d="M32 28 Q36 34 34 40" stroke-dasharray="3 3"/>
-        </svg>
-        <h3>Психологи</h3>
-        <p>Создаём бренд, который вызывает доверие и притягивает клиентов без потери этики и глубины практики.</p>
+
+    <div class="audience-grid-v2 fade-in">
+      <article class="aud-card-v2">
+        <img class="aud-card-v2__img" src="assets/card-psychologists.jpg" alt="Психологи">
+        <div class="aud-card-v2__body">
+          <h3>Психологи</h3>
+          <p>Помогаем проявить экспертность через доверие, глубину и сильное позиционирование, чтобы клиенты чувствовали вашу ценность ещё до первой консультации.</p>
+        </div>
       </article>
-      <article class="aud-card">
-        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M26 8 L30 20 L42 20 L32 28 L36 40 L26 32 L16 40 L20 28 L10 20 L22 20 Z"/>
-        </svg>
-        <h3>Коучи</h3>
-        <p>Упаковываем экспертность в структуру, которая ведёт к росту, масштабированию и системным запускам.</p>
+      <article class="aud-card-v2">
+        <img class="aud-card-v2__img" src="assets/card-coaches.jpg" alt="Коучи">
+        <div class="aud-card-v2__body">
+          <h3>Коучи</h3>
+          <p>Превращаем опыт, знания и результаты клиентов в понятную систему личного бренда, которая привлекает именно ваших людей.</p>
+        </div>
       </article>
-      <article class="aud-card">
-        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M26 6 C26 6 16 20 16 30 a10 10 0 0 0 20 0 C36 20 26 6 26 6"/>
-          <circle cx="26" cy="30" r="4"/>
-        </svg>
-        <h3>Эзотерики</h3>
-        <p>Передаём глубину и смыслы через эстетику и гармонию — чтобы бренд совпадал с сутью практики.</p>
+      <article class="aud-card-v2">
+        <img class="aud-card-v2__img" src="assets/card-esoterics.jpg" alt="Эзотерики">
+        <div class="aud-card-v2__body">
+          <h3>Эзотерики</h3>
+          <p>Помогаем бережно упаковать глубину практики в современный бренд, сохранив её суть, этику и уникальность.</p>
+        </div>
       </article>
-      <article class="aud-card">
-        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
-          <rect x="10" y="16" width="32" height="26" rx="3"/>
-          <path d="M20 16 V12 a6 6 0 0 1 12 0 v4"/>
-          <line x1="26" y1="26" x2="26" y2="32"/>
-          <line x1="23" y1="29" x2="29" y2="29"/>
-        </svg>
-        <h3>Эксперты личного бренда</h3>
-        <p>Выделяем на фоне конкурентов и делаем узнаваемым в нише — от позиционирования до выхода в мир.</p>
+      <article class="aud-card-v2">
+        <img class="aud-card-v2__img" src="assets/card-energy.jpg" alt="Энергопрактики">
+        <div class="aud-card-v2__body">
+          <h3>Энергопрактики</h3>
+          <p>Переводим сложные состояния, смыслы и трансформации на понятный клиентам язык, делая вашу работу видимой и востребованной.</p>
+        </div>
       </article>
+    </div>
+
+    <div class="audience-tagline fade-in">
+      <p>Уникальность не создаётся. <em>Она вспоминается.</em></p>
     </div>
   </div>
 </section>
