@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Katie Agency · AI Media Agency нового поколения</title>
+<title>Kati Agency · AI Media Agency нового поколения</title>
 <meta name="description" content="Создаём бренды, которые невозможно скопировать. Стратегия, психология личности, AI, эстетика и технологии — для коучей, психологов, наставников и экспертов мягких ниш.">
 <meta name="theme-color" content="#FAF7F2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bad+Script&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Marck+Script&display=swap" rel="stylesheet">
 <style>
   /* ─── Токены ─── */
   :root {
@@ -27,6 +27,7 @@
     --max:      1200px;
     --serif:    'Cormorant Garamond', Georgia, serif;
     --sans:     'Manrope', -apple-system, sans-serif;
+    --script:   'Marck Script', cursive;
     --sh:       0 8px 32px rgba(47,79,99,.08);
     --sh-lg:    0 20px 56px rgba(47,79,99,.13);
   }
@@ -318,15 +319,19 @@
   .audience-intro {
     max-width: 780px;
     margin: 0 auto 72px;
-    text-align: center;
+    text-align: left;
   }
   .audience-intro .label { margin-bottom: 20px; }
   .audience-intro h2 { color: var(--navy); margin-bottom: 24px; }
   .audience-intro p {
-    font-size: 16px; color: var(--muted); line-height: 1.82; margin-bottom: 14px;
+    font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 8px;
   }
   .audience-intro p:last-child { margin-bottom: 0; }
   .audience-intro p strong { color: var(--navy); }
+  .audience-intro h2 em {
+    font-style: inherit;
+    color: var(--gold);
+  }
 
   .audience-grid-v2 {
     display: grid;
@@ -376,13 +381,18 @@
     border-top: 1px solid rgba(200,162,122,.2);
   }
   .audience-tagline p {
-    font-family: var(--serif);
-    font-size: clamp(22px, 2.8vw, 34px);
-    font-style: italic;
+    font-family: var(--script);
+    font-size: clamp(28px, 3.6vw, 44px);
+    font-weight: 400;
     color: var(--navy);
-    line-height: 1.3;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
   }
-  .audience-tagline p em { color: var(--gold); font-style: inherit; }
+  .audience-tagline p em {
+    color: var(--gold);
+    font-style: inherit;
+    font-size: 1.08em;
+  }
 
   @media (max-width:1024px) {
     .audience-grid-v2 { grid-template-columns: repeat(2, 1fr); }
@@ -420,131 +430,477 @@
   .aud-card p { font-size:14px; color:var(--muted); line-height:1.65; }
 
   /* ─── НАШ ПОДХОД ─── */
-  .approach-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+  .text-accent {
+    color: var(--gold);
+    font-weight: 600;
   }
-  .approach-visual {
+
+  .approach-sec {
     position: relative;
-    aspect-ratio: 3/4;
-    border-radius: var(--r-lg);
+    padding: 100px 0;
     overflow: hidden;
-    background: linear-gradient(160deg, var(--beige), var(--blue));
-    box-shadow: var(--sh-lg);
   }
-  .approach-visual img {
-    width:100%; height:100%; object-fit:cover;
+  .approach-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
   }
-  .approach-visual__ph {
-    width:100%; height:100%; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:16px;
-    text-align:center; padding:48px;
-    color:var(--navy);
+  .approach-backdrop__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
   }
-  .approach-visual__ph svg { opacity:.35; }
-  .approach-visual__ph span {
-    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.6;
-  }
-  .approach-label {
-    position:absolute; bottom:28px; left:28px; right:28px;
-    background:rgba(250,247,242,.92);
-    backdrop-filter:blur(8px);
-    border-radius:var(--r);
-    padding:16px 20px;
-    font-size:13px; color:var(--navy); font-weight:500;
-    border-left:3px solid var(--gold);
+  .approach-backdrop__ink {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    cursor: crosshair;
   }
 
-  .approach-text .label { margin-bottom:24px; }
-  .approach-text h2 { color:var(--navy); margin-bottom:24px; }
-  .approach-text p { font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:20px; }
-  .approach-text p strong { color:var(--navy); }
-  .approach-steps {
-    margin-top:36px;
-    display:flex; flex-direction:column; gap:4px;
+  .approach-content {
+    position: relative;
+    z-index: 3;
+    pointer-events: none;
   }
-  .approach-step {
-    display:flex; align-items:flex-start; gap:20px;
-    padding:20px;
-    background:var(--white);
-    border-radius:var(--r);
-    border-left:3px solid transparent;
-    transition:border-color .2s, background .2s;
+  .approach-pillars,
+  .approach-closing {
+    pointer-events: auto;
   }
-  .approach-step:hover { border-color:var(--gold); background:var(--beige); }
-  .approach-step__num {
-    font-family:var(--serif); font-size:32px; font-weight:600;
-    color:var(--blue); line-height:1; flex-shrink:0;
-  }
-  .approach-step h4 {
-    font-family:var(--sans); font-size:11px; font-weight:700;
-    letter-spacing:.1em; text-transform:uppercase; color:var(--navy);
-    margin-bottom:4px;
-  }
-  .approach-step p { font-size:13px; color:var(--muted); margin:0; line-height:1.55; }
 
-  /* ─── SOUL Method ─── */
-  .soul-grid {
+  .approach-hd {
+    max-width: 580px;
+    margin-bottom: 72px;
+  }
+  .approach-hd .label { margin-bottom: 20px; }
+
+  .approach-mirror {
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.6vw, 30px);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  .approach-hd__lead {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.85;
+  }
+  .approach-hd__lead p {
+    margin-bottom: 28px;
+    font-weight: 400;
+  }
+  .approach-hd__lead p:last-child { margin-bottom: 0; }
+  .approach-hd__lead .text-accent { font-weight: 600; }
+
+  .approach-pillars {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
     border-radius: var(--r-lg);
-    overflow:hidden;
+    overflow: hidden;
+    margin-bottom: 2px;
     box-shadow: var(--sh-lg);
   }
-  .soul-card {
-    padding: 52px 36px;
-    display:flex; flex-direction:column; gap:24px;
-    transition: background .3s;
+  .approach-pillar {
+    position: relative;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(12px);
+    padding: 48px 36px 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-right: 1px solid rgba(200,162,122,.12);
+    transition: background .45s ease, transform .45s ease, box-shadow .45s ease;
   }
-  .soul-card:nth-child(1) { background:var(--navy); color:var(--cream); }
-  .soul-card:nth-child(2) { background:var(--navy-dk); color:var(--cream); }
-  .soul-card:nth-child(3) { background:var(--gold-dk); color:var(--cream); }
-  .soul-card:nth-child(4) { background:var(--gold); color:var(--cream); }
-
-  .soul-card__letter {
+  .approach-pillar:last-child { border-right: none; }
+  .approach-pillars:hover .approach-pillar {
+    background: rgba(255,255,255,.72);
+  }
+  .approach-pillars:hover .approach-pillar:hover {
+    background: rgba(255,255,255,.96);
+    transform: translateY(-6px);
+    box-shadow: 0 16px 48px rgba(47,79,99,.12);
+    z-index: 2;
+  }
+  .approach-pillar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .45s ease;
+  }
+  .approach-pillar:hover::after { transform: scaleX(1); }
+  .approach-pillar__num {
     font-family: var(--serif);
-    font-size: 96px;
+    font-size: 72px;
     font-weight: 600;
     line-height: 1;
-    opacity: .18;
-    margin-bottom: -8px;
+    color: var(--blue);
+    opacity: .45;
+    margin-bottom: -4px;
+    transition: color .45s ease, opacity .45s ease;
   }
-  .soul-card__word {
-    font-size: 10.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
-    opacity:.7;
+  .approach-pillar:hover .approach-pillar__num {
+    color: var(--gold);
+    opacity: 1;
   }
-  .soul-card h3 {
-    font-family:var(--serif); font-size:22px; font-weight:500;
-    color: inherit; line-height:1.2;
+  .approach-pillar h3 {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+    transition: color .3s;
   }
-  .soul-card p { font-size:14px; line-height:1.7; opacity:.85; }
+  .approach-pillar:hover h3 { color: var(--gold-dk); }
+  .approach-pillar p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin: 0;
+  }
 
-  .soul-method__header .label { margin-bottom:20px; }
-  .soul-method__header h2 { color:var(--navy); margin-bottom:12px; }
-  .soul-method__header .sub {
-    font-family:var(--serif); font-size:20px; font-style:italic;
-    color:var(--muted); margin-bottom:56px; display:block;
+  .approach-closing {
+    background: var(--navy);
+    border-radius: var(--r-lg);
+    padding: 56px 64px;
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-top: 2px;
+  }
+  .approach-closing__qmark {
+    font-family: var(--serif);
+    font-size: 100px;
+    line-height: .6;
+    color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .approach-closing p {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2vw, 24px);
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--cream);
+    margin: 0;
+  }
+  .approach-closing p em {
+    color: var(--gold);
+    font-style: inherit;
+  }
+
+  @media (max-width: 900px) {
+    .approach-hd { max-width: 100%; margin-bottom: 48px; }
+    .approach-pillars { grid-template-columns: 1fr; }
+    .approach-pillar {
+      border-right: none;
+      border-bottom: 1px solid rgba(200,162,122,.12);
+    }
+    .approach-pillar:last-child { border-bottom: none; }
+    .approach-pillar { padding: 36px 28px; }
+    .approach-closing { padding: 40px 32px; flex-direction: column; gap: 20px; }
+    .approach-closing__qmark { font-size: 72px; }
+  }
+
+  /* ─── SOUL Method ─── */
+  .soul-sec {
+    position: relative;
+    padding: 100px 0 120px;
+    background: var(--beige);
+    overflow: hidden;
+  }
+  .soul-sec__watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--serif);
+    font-size: clamp(120px, 22vw, 280px);
+    font-weight: 600;
+    letter-spacing: .18em;
+    color: var(--navy);
+    opacity: .035;
+    pointer-events: none;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .soul-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 72px;
+    position: relative;
+    z-index: 1;
+  }
+  .soul-head .label { margin-bottom: 20px; }
+  .soul-head h2 {
+    color: var(--navy);
+    margin-bottom: 12px;
+    font-size: clamp(36px, 5vw, 56px);
+  }
+  .soul-head__sub {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2vw, 22px);
+    font-style: italic;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+
+  .soul-journey {
+    position: relative;
+    z-index: 1;
+  }
+  .soul-journey__line {
+    display: none;
+  }
+
+  .soul-track {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .soul-step {
+    --step-accent: var(--navy);
+    position: relative;
+    background: rgba(255,255,255,.72);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(200,162,122,.2);
+    border-radius: var(--r-lg);
+    padding: 40px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: hidden;
+    transition: transform .45s cubic-bezier(.22, 1, .36, 1), box-shadow .45s ease, border-color .35s ease;
+    box-shadow: 0 4px 24px rgba(47,79,99,.06);
+  }
+  .soul-step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--step-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+  }
+  .soul-step:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 48px rgba(47,79,99,.14);
+  }
+  .soul-step:hover::before { transform: scaleX(1); }
+
+  .soul-step--s { --step-accent: var(--navy); }
+  .soul-step--o { --step-accent: var(--navy-dk); }
+  .soul-step--u { --step-accent: var(--gold-dk); }
+  .soul-step--l { --step-accent: var(--gold); }
+
+  .soul-reveal {
+    animation: soul-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 85%;
+  }
+  .soul-step:nth-child(2).soul-reveal { animation-range: entry 8% entry 88%; }
+  .soul-step:nth-child(3).soul-reveal { animation-range: entry 11% entry 91%; }
+  .soul-step:nth-child(4).soul-reveal { animation-range: entry 14% entry 94%; }
+
+  @keyframes soul-reveal {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @supports not (animation-timeline: view()) {
+    .soul-reveal { opacity: 1; transform: none; animation: none; }
+  }
+
+  .soul-step__top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .soul-step__letter {
+    font-family: var(--serif);
+    font-size: 72px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--step-accent);
+    opacity: .22;
+    transition: opacity .4s ease, transform .4s ease;
+  }
+  .soul-step:hover .soul-step__letter {
+    opacity: .45;
+    transform: translateY(-4px);
+  }
+  .soul-step__index {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .soul-step__word {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .soul-step h3 {
+    font-family: var(--serif);
+    font-size: clamp(19px, 1.8vw, 23px);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .soul-step p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin: 0;
+    flex: 1;
+  }
+
+  .soul-closing {
+    margin-top: 64px;
+    background: var(--navy);
+    border-radius: var(--r-lg);
+    padding: 88px 56px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .soul-closing__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+    border-radius: var(--r-lg);
+  }
+  .soul-closing__overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(47,79,99,.28) 0%, rgba(36,61,77,.68) 65%, rgba(28,48,60,.88) 100%);
+    pointer-events: none;
+  }
+  .soul-closing p {
+    position: relative;
+    z-index: 2;
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 40px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.42;
+    color: rgba(250,247,242,.92);
+    margin: 0 auto 44px;
+    max-width: 720px;
+    text-shadow: 0 2px 24px rgba(36,61,77,.5);
+  }
+  .soul-closing .text-accent {
+    background: linear-gradient(135deg, #e8c98a 0%, var(--gold) 40%, #d4a96a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    font-style: normal;
+  }
+  .soul-closing .btn { position: relative; z-index: 2; }
+  .btn--soul-cta {
+    background: linear-gradient(135deg, #e8c98a 0%, var(--gold) 55%, var(--gold-dk) 100%);
+    color: var(--navy-dk);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 18px 44px;
+    border-radius: var(--r);
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 0 0 48px rgba(200,162,122,.55), 0 8px 28px rgba(168,132,94,.35);
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .btn--soul-cta:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 0 72px rgba(200,162,122,.75), 0 16px 40px rgba(168,132,94,.5);
+  }
+
+  @media (min-width: 901px) {
+    .soul-journey__line {
+      display: block;
+      position: absolute;
+      top: 28px;
+      left: 12%;
+      right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,162,122,.35) 15%, rgba(200,162,122,.35) 85%, transparent);
+      z-index: 0;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .soul-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 8px 4px 24px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .soul-track::-webkit-scrollbar { display: none; }
+    .soul-step {
+      flex: 0 0 min(78vw, 320px);
+      scroll-snap-align: center;
+    }
+    .soul-closing { padding: 52px 28px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .soul-reveal { animation: none; opacity: 1; transform: none; }
+    .soul-step:hover { transform: none; }
   }
 
   /* ─── Обо мне ─── */
   .about-split {
     display: grid;
-    grid-template-columns: 420px 1fr;
-    gap: 80px;
-    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: stretch;
   }
   .about-photo {
-    position:sticky; top:100px;
-    aspect-ratio:3/4;
-    border-radius:var(--r-lg);
-    overflow:hidden;
-    background:var(--beige);
-    box-shadow:var(--sh-lg);
+    position: sticky;
+    top: 88px;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--beige);
+    box-shadow: var(--sh-lg);
+    min-height: 600px;
+    align-self: start;
   }
-  .about-photo img { width:100%; height:100%; object-fit:cover; }
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 10%;
+    display: block;
+    min-height: 600px;
+  }
   .about-photo__ph {
     width:100%; height:100%; min-height:520px;
     display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -562,21 +918,56 @@
   .about-text p strong { color:var(--navy); }
 
   .about-highlight {
+    position: relative;
     background: var(--navy);
-    color: var(--cream);
-    border-radius:var(--r-lg);
-    padding:36px;
-    margin-top:36px;
-    display:flex; gap:24px; align-items:flex-start;
+    border-radius: var(--r-lg);
+    padding: 44px 40px;
+    margin-top: 36px;
+    border: 1px solid rgba(200,162,122,.28);
+    box-shadow: 0 0 48px rgba(200,162,122,.38), 0 8px 32px rgba(47,79,99,.18);
+    animation: about-glow 4s ease-in-out infinite;
+  }
+  @keyframes about-glow {
+    0%, 100% { box-shadow: 0 0 40px rgba(200,162,122,.32), 0 8px 32px rgba(47,79,99,.15); }
+    50%       { box-shadow: 0 0 64px rgba(200,162,122,.55), 0 8px 32px rgba(47,79,99,.22); }
   }
   .about-highlight__quote {
-    font-family:var(--serif); font-size:60px; line-height:.7;
-    color:var(--gold); flex-shrink:0; margin-top:4px;
+    font-family: var(--sans);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.82;
+    color: #e8c98a;
+    margin: 0;
+    text-shadow: 0 0 18px rgba(200,162,122,.65), 0 0 36px rgba(200,162,122,.35);
   }
-  .about-highlight p {
-    font-family:var(--serif); font-size:20px; font-style:italic;
-    line-height:1.55; color:var(--cream); margin:0;
-    font-weight:400;
+  .about-highlight__mark {
+    color: #f0d9a8;
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba(200,162,122,.8);
+  }
+  .about-highlight__mark--close {
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+  .about-highlight__mark--close.is-visible { opacity: 1; }
+  .about-highlight__cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.05em;
+    background: #f0d9a8;
+    margin-left: 1px;
+    vertical-align: text-bottom;
+    box-shadow: 0 0 10px rgba(200,162,122,.9);
+    animation: about-blink .65s step-end infinite;
+  }
+  .about-highlight__cursor.is-done { display: none; }
+  @keyframes about-blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-highlight { animation: none; }
+    .about-highlight__cursor { display: none; }
   }
 
   /* ─── Услуги / экосистема ─── */
@@ -761,17 +1152,25 @@
     padding:72px 64px;
     display:flex; flex-direction:column; justify-content:center;
   }
-  .founder-split__qmark {
-    font-family:var(--serif); font-size:140px; line-height:.55;
-    color:var(--gold); margin-bottom:24px;
-  }
   .founder-split__qtext {
-    font-family:var(--serif); font-size:clamp(22px,2.4vw,30px);
-    font-style:italic; line-height:1.45; margin-bottom:32px;
+    font-family: var(--serif);
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: .04em;
+    line-height: 1.48;
+    margin-bottom: 36px;
   }
   .founder-split__qauthor {
-    font-size:10.5px; font-weight:700; letter-spacing:.16em;
-    text-transform:uppercase; color:var(--gold);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--sans);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--gold);
   }
   .founder-split__photo {
     position:relative; overflow:hidden;
@@ -1039,7 +1438,6 @@
 
   /* ─── Responsive ─── */
   @media (max-width:1024px) {
-    .approach-grid { grid-template-columns:1fr; gap:56px; }
     .about-split { grid-template-columns:1fr; }
     .about-photo { position:static; max-width:380px; }
     .soul-grid { grid-template-columns:repeat(2,1fr); }
@@ -1134,7 +1532,7 @@
     <div class="hero__inner">
       <span class="label fade-in">AI Media Agency нового поколения</span>
       <h1 class="fade-in fade-in--delay-1">Создаём бренды, которые невозможно скопировать.</h1>
-      <p class="hero__lead fade-in fade-in--delay-2">Katie Agency — место, где стратегия, психология личности, искусственный интеллект, визуальная эстетика и современные технологии объединяются в единую систему. Мы помогаем коучам, психологам, наставникам, консультантам и экспертам мягких ниш находить собственный голос и превращать его в бренд, который отражает человека и привлекает нужных клиентов.</p>
+      <p class="hero__lead fade-in fade-in--delay-2">Kati Agency — место, где стратегия, психология личности, искусственный интеллект, визуальная эстетика и современные технологии объединяются в единую систему. Мы помогаем коучам, психологам, наставникам, консультантам и экспертам мягких ниш находить собственный голос и превращать его в бренд, который отражает человека и привлекает нужных клиентов.</p>
       <div class="hero__actions fade-in fade-in--delay-3">
         <a href="#contact" class="btn btn--gold">Начать путь проявленности</a>
         <a href="#soul" class="arrow-link">SOUL Method <span>→</span></a>
@@ -1170,7 +1568,7 @@
   <div class="container">
     <div class="audience-intro fade-in">
       <span class="label">Для кого</span>
-      <h2>Мы работаем с теми, кто меняет жизнь людей</h2>
+      <h2>Мы работаем с теми, кто <em>меняет жизнь</em> людей</h2>
       <p>С теми, кто несёт знания, поддержку, осознанность, исцеление и трансформацию.</p>
       <p>С теми, чья работа меняет жизнь, но её ценность не всегда становится заметной для мира.</p>
       <p><strong>Наша задача</strong> — помочь вашему пониманию стать видимым, вашей уникальности — узнаваемой, вашему опыту — сильного личного бренда.</p>
@@ -1215,94 +1613,117 @@
 </section>
 
 <!-- ══════════ НАШ ПОДХОД ══════════ id="approach" ══════════ -->
-<section class="sec sec--white" id="approach">
-  <div class="container">
-    <div class="approach-grid">
-      <div class="approach-visual fade-in">
-        <img src="assets/katrin-about.jpg" alt="Катрин Журавлёва">
-        <div class="approach-label">«Мы не создаём маски — мы помогаем человеку увидеть себя настоящего»</div>
-      </div>
+<section class="approach-sec" id="approach">
+  <div class="approach-backdrop" aria-hidden="true">
+    <img class="approach-backdrop__img" src="assets/approach-bg.jpg" alt="">
+    <canvas class="approach-backdrop__ink" id="inkReveal"></canvas>
+  </div>
 
-      <div class="approach-text fade-in fade-in--delay-2">
-        <span class="label">Наш подход</span>
-        <h2>Личный бренд начинается не с маркетинга.</h2>
-        <p>Большинство экспертов начинают с логотипа, визуала и контента.</p>
-        <p>Но если человек не понимает себя, свои смыслы, ценности и уникальность — никакая стратегия не даст долгосрочного результата.</p>
-        <p><strong>Поэтому мы начинаем с главного — с личности.</strong></p>
-        <p>Мы помогаем человеку увидеть свои сильные стороны, понять свою историю, раскрыть уникальность — и только потом превращаем всё это в продукты, контент, визуальную систему, AI-инструменты и сайт.</p>
+  <div class="container approach-content">
 
-        <div class="approach-steps">
-          <div class="approach-step">
-            <div class="approach-step__num">01</div>
-            <div>
-              <h4>Познание себя</h4>
-              <p>Распаковка личности, ценностей, сильных сторон и уникальности</p>
-            </div>
-          </div>
-          <div class="approach-step">
-            <div class="approach-step__num">02</div>
-            <div>
-              <h4>Стратегия и смыслы</h4>
-              <p>Карта смыслов, позиционирование, аудитория и продуктовая линейка</p>
-            </div>
-          </div>
-          <div class="approach-step">
-            <div class="approach-step__num">03</div>
-            <div>
-              <h4>Воплощение и рост</h4>
-              <p>Визуал, сайт, контент, AI-инструменты и системный выход в мир</p>
-            </div>
-          </div>
-        </div>
+    <div class="approach-hd">
+      <span class="label fade-in">Наш подход</span>
+
+      <p class="approach-mirror fade-in"><span class="text-accent">Мы становимся зеркалом.</span></p>
+
+      <div class="approach-hd__lead fade-in fade-in--delay-1">
+        <p>Помогаем увидеть <span class="text-accent">образ будущего себя</span> — ту версию, которая уже реализовала свой потенциал, живёт в согласии со своими ценностями и создаёт проект, отражающий её истинную суть.</p>
+        <p>Находим <span class="text-accent">смыслы</span>, <span class="text-accent">уникальность</span> и <span class="text-accent">внутреннюю опору</span>.</p>
+        <p>Затем мы превращаем это видение в <span class="text-accent">экосистему бренда</span>, где каждая деталь работает не просто на узнаваемость, а на вашу <span class="text-accent">реализацию и</span> влияние.</p>
       </div>
     </div>
+
+    <div class="approach-pillars fade-in fade-in--delay-2">
+      <div class="approach-pillar">
+        <div class="approach-pillar__num">01</div>
+        <h3>Видение и масштаб</h3>
+        <p>Начинаем с ответа на главный вопрос: куда вы хотите прийти? Создаём ясный образ будущего, понимаем миссию, ценности и направление роста — чтобы каждое действие приближало к той жизни, которую вы выбираете.</p>
+      </div>
+      <div class="approach-pillar">
+        <div class="approach-pillar__num">02</div>
+        <h3>Суть и уникальность</h3>
+        <p>Раскрываем вашу историю, сильные стороны и глубинные смыслы. Находим то, что делает вас по-настоящему узнаваемыми — не похожим на других, а собой.</p>
+      </div>
+      <div class="approach-pillar">
+        <div class="approach-pillar__num">03</div>
+        <h3>Экосистема реализации</h3>
+        <p>Создаём систему, которая помогает бренду расти: позиционирование, продукты, контент, визуальный стиль, сайт, AI-инструменты и стратегия. Всё работает как единое целое.</p>
+      </div>
+    </div>
+
+    <div class="approach-closing fade-in fade-in--delay-3">
+      <div class="approach-closing__qmark">"</div>
+      <p>Мы не создаём новую версию вас.<br>Мы помогаем увидеть ту, которой вы способны стать — <em>и построить путь к ней уже сегодня.</em></p>
+    </div>
+
   </div>
 </section>
 
 <!-- ══════════ SOUL METHOD ══════════ -->
-<section class="sec sec--beige" id="soul">
+<section class="soul-sec" id="soul">
+  <span class="soul-sec__watermark" aria-hidden="true">SOUL</span>
   <div class="container">
-    <div class="soul-method__header fade-in">
+
+    <header class="soul-head fade-in">
       <span class="label">Авторская система</span>
       <h2>SOUL Method</h2>
-      <span class="sub">Авторская система построения личного бренда</span>
+      <p class="soul-head__sub">Авторская система построения личного бренда</p>
+    </header>
+
+    <div class="soul-journey">
+      <div class="soul-journey__line" aria-hidden="true"></div>
+      <div class="soul-track">
+
+        <article class="soul-step soul-step--s soul-reveal">
+          <div class="soul-step__top">
+            <span class="soul-step__letter">S</span>
+            <span class="soul-step__index">01</span>
+          </div>
+          <span class="soul-step__word">Soul · Душа</span>
+          <h3>Кто ты на самом деле</h3>
+          <p>Глубинная работа с ценностями, личностью и внутренней природой. Без масок — только то, что по-настоящему твоё.</p>
+        </article>
+
+        <article class="soul-step soul-step--o soul-reveal">
+          <div class="soul-step__top">
+            <span class="soul-step__letter">O</span>
+            <span class="soul-step__index">02</span>
+          </div>
+          <span class="soul-step__word">Origin · Происхождение</span>
+          <h3>Твоя история, опыт и путь</h3>
+          <p>Всё, что ты пережил — это ресурс, а не груз. Мы находим в твоей истории силу и превращаем её в бренд-нарратив.</p>
+        </article>
+
+        <article class="soul-step soul-step--u soul-reveal">
+          <div class="soul-step__top">
+            <span class="soul-step__letter">U</span>
+            <span class="soul-step__index">03</span>
+          </div>
+          <span class="soul-step__word">Uniqueness · Уникальность</span>
+          <h3>Твои сильные стороны</h3>
+          <p>Распаковка экспертности, поиск уникального сочетания качеств — то, что делает тебя незаменимым для конкретного клиента.</p>
+        </article>
+
+        <article class="soul-step soul-step--l soul-reveal">
+          <div class="soul-step__top">
+            <span class="soul-step__letter">L</span>
+            <span class="soul-step__index">04</span>
+          </div>
+          <span class="soul-step__word">Launch · Запуск</span>
+          <h3>Проявить себя через бренд и технологии</h3>
+          <p>Продукты, контент, визуальная система, AI-инструменты и сайт — всё выстроено под твою уникальность.</p>
+        </article>
+
+      </div>
     </div>
 
-    <div class="sec__hd fade-in" style="margin-bottom:40px;max-width:640px">
-      <p>В основе Katie Agency лежит авторский метод SOUL — не про создание образа, а про раскрытие того, кем человек уже является.</p>
+    <div class="soul-closing fade-in">
+      <canvas class="soul-closing__canvas" aria-hidden="true"></canvas>
+      <div class="soul-closing__overlay" aria-hidden="true"></div>
+      <p>После прохождения этого пути появляется <span class="text-accent">ясность и понимание</span>,<br><span class="text-accent">как реализовать свои идеи в реальном мире.</span></p>
+      <a href="#services" class="btn btn--soul-cta">Посмотреть услуги</a>
     </div>
 
-    <div class="soul-grid fade-in">
-      <div class="soul-card">
-        <div class="soul-card__letter">S</div>
-        <span class="soul-card__word">Soul · Душа</span>
-        <h3>Кто ты на самом деле</h3>
-        <p>Глубинная работа с ценностями, личностью и внутренней природой. Без масок — только то, что по-настоящему твоё.</p>
-      </div>
-      <div class="soul-card">
-        <div class="soul-card__letter">O</div>
-        <span class="soul-card__word">Origin · Происхождение</span>
-        <h3>Твоя история, опыт и путь</h3>
-        <p>Всё, что ты пережил — это ресурс, а не груз. Мы находим в твоей истории силу и превращаем её в бренд-нарратив.</p>
-      </div>
-      <div class="soul-card">
-        <div class="soul-card__letter">U</div>
-        <span class="soul-card__word">Uniqueness · Уникальность</span>
-        <h3>Твои сильные стороны</h3>
-        <p>Распаковка экспертности, поиск уникального сочетания качеств — то, что делает тебя незаменимым для конкретного клиента.</p>
-      </div>
-      <div class="soul-card">
-        <div class="soul-card__letter">L</div>
-        <span class="soul-card__word">Launch · Запуск</span>
-        <h3>Проявить себя через бренд и технологии</h3>
-        <p>Продукты, контент, визуальная система, AI-инструменты и сайт — всё выстроено под твою уникальность.</p>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:48px" class="fade-in">
-      <p style="font-size:16px;color:var(--muted);max-width:580px;margin:0 auto 28px;line-height:1.8">После прохождения этого пути появляется не только понимание себя, но и ясность — как реализовать свои идеи в реальном мире.</p>
-      <a href="#services" class="btn btn--navy">Посмотреть услуги</a>
-    </div>
   </div>
 </section>
 
@@ -1311,14 +1732,15 @@
   <div class="container">
     <div class="about-split">
       <div class="about-photo fade-in">
-        <img src="assets/katrin-about.jpg" alt="Катрин Журавлёва — основатель Katie Agency">
+        <img src="assets/katrin-about.jpg" alt="Катрин Журавлёва — основатель Kati Agency">
       </div>
 
       <div class="about-text fade-in fade-in--delay-2">
         <span class="label">Основатель агентства</span>
-        <h2>Привет, я Катрин Журавлёва.</h2>
+        <h2>Привет!</h2>
 
-        <p>Меня зовут Катрин Журавлёва, и я основатель Katie Agency.</p>
+        <p>Меня зовут Катрин Журавлёва</p>
+        <p>И я основатель Kati Agency.</p>
         <p>Мой путь начался совсем не в маркетинге.</p>
         <p>По первому образованию я юрист и более 15 лет работала в одной из крупнейших компаний Беларуси. Я занималась переговорами, тендерами, стратегическими решениями и построением процессов.</p>
         <p><strong>В 35 лет моя жизнь полностью изменилась.</strong></p>
@@ -1329,9 +1751,10 @@
         <p>Сегодня я объединяю смыслы, стратегию, цифровую психологию, современные технологии, искусственный интеллект и визуальный брендинг, чтобы помогать людям находить собственный путь проявленности.</p>
         <p>Я работаю со специалистами помогающих профессий, потому что знаю: помогая одному сильному эксперту стать видимым, уверенным и востребованным, я помогаю всем тем людям, которым он сможет изменить жизнь своей работой.</p>
 
-        <div class="about-highlight">
-          <div class="about-highlight__quote">"</div>
-          <p>Я верю, что мир счастливых людей начинается с тех, кто помогает другим становиться счастливее. Именно поэтому существует Katie Agency.</p>
+        <div class="about-highlight" id="aboutHighlight">
+          <blockquote class="about-highlight__quote">
+            <span class="about-highlight__mark about-highlight__mark--open">"</span><span class="about-highlight__text" id="aboutTypeText"></span><span class="about-highlight__cursor" id="aboutTypeCursor" aria-hidden="true"></span><span class="about-highlight__mark about-highlight__mark--close" id="aboutTypeClose">"</span>
+          </blockquote>
         </div>
       </div>
     </div>
@@ -1341,9 +1764,12 @@
 <!-- ══════════ ЦИТАТА + ФОТО ══════════ -->
 <section class="founder-split">
   <div class="founder-split__quote fade-in">
-    <div class="founder-split__qmark">"</div>
-    <p class="founder-split__qtext">Я вижу суть, чувствую эксперта и превращаю это в сильный бренд, который притягивает клиентов, открывает двери и меняет жизни.</p>
-    <p class="founder-split__qauthor">Катрин Журавлёва · основатель Katie Agency</p>
+    <p class="founder-split__qtext">Сильный бренд рождается там, где человек перестаёт быть похожим на других и начинает быть собой.</p>
+    <div class="founder-split__qauthor">
+      <span>Катрин Журавлёва</span>
+      <span>Основатель Kati Agency</span>
+      <span>SOUL Method</span>
+    </div>
   </div>
   <div class="founder-split__photo">
     <img src="assets/katrin-hero.jpg" alt="Катрин Журавлёва с лошадью">
@@ -1732,7 +2158,7 @@
 
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Чем Katie Agency отличается от маркетингового агентства?
+          Чем Kati Agency отличается от маркетингового агентства?
           <span class="faq-icon">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
           </span>
@@ -1825,7 +2251,7 @@
         </a>
       </div>
     </div>
-    <p class="ftr__bottom">© 2026 Katie Agency · Катрин Журавлёва · AI Media Agency нового поколения для экспертов мягких ниш</p>
+    <p class="ftr__bottom">© 2026 Kati Agency · Катрин Журавлёва · AI Media Agency нового поколения для экспертов мягких ниш</p>
   </div>
 </footer>
 
@@ -1872,6 +2298,294 @@
     { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  /* ─ Ink Reveal (approach section) ─ */
+  (function() {
+    const canvas = document.getElementById('inkReveal');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const parent = canvas.parentElement;
+
+    const MC = [250, 247, 242];
+    const BRUSH = 128, LIFE = 600, R_START = 10, R_VARY = 0.45;
+    const STEP = 10, MAX = 200, SEG = 36;
+    const WOBBLE = [0.14, 0.08, 0.05];
+    const G_IN = 0.2, G_STOPS = [0.95, 0.88, 0];
+
+    const stamps = [];
+    let running = false, rafId = null, lastPos = null;
+    let W = 0, H = 0;
+
+    function resize() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const rect = parent.getBoundingClientRect();
+      W = rect.width; H = rect.height;
+      canvas.width = Math.round(W * dpr);
+      canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = `rgb(${MC[0]},${MC[1]},${MC[2]})`;
+      ctx.fillRect(0, 0, W, H);
+      stamps.length = 0;
+      lastPos = null;
+    }
+
+    function carve(x, y, r, seed, alpha) {
+      const g = ctx.createRadialGradient(x, y, r * G_IN, x, y, r);
+      g.addColorStop(0, `rgba(0,0,0,${G_STOPS[0] * alpha})`);
+      g.addColorStop(0.5, `rgba(0,0,0,${G_STOPS[1] * alpha})`);
+      g.addColorStop(1, `rgba(0,0,0,${G_STOPS[2] * alpha})`);
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      for (let i = 0; i <= SEG; i++) {
+        const a = (i / SEG) * Math.PI * 2;
+        const wob = 0.78 + WOBBLE[0]*Math.sin(a*3+seed) + WOBBLE[1]*Math.sin(a*5+seed*2.1) + WOBBLE[2]*Math.sin(a*7+seed*0.7);
+        const px = x + Math.cos(a)*r*wob, py = y + Math.sin(a)*r*wob;
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+      }
+      ctx.closePath(); ctx.fill();
+    }
+
+    function addStamp(x, y) {
+      if (stamps.length >= MAX) stamps.shift();
+      stamps.push({ x, y, born: performance.now(), seed: Math.random()*Math.PI*2, rmax: BRUSH*(1-R_VARY+Math.random()*R_VARY) });
+    }
+
+    function stampAlong(x, y) {
+      if (!lastPos) { addStamp(x, y); }
+      else {
+        const dx = x-lastPos.x, dy = y-lastPos.y, dist = Math.hypot(dx, dy);
+        const steps = Math.max(1, Math.ceil(dist/STEP));
+        for (let i = 1; i <= steps; i++) addStamp(lastPos.x+dx*i/steps, lastPos.y+dy*i/steps);
+      }
+      lastPos = { x, y };
+    }
+
+    function loop() {
+      const now = performance.now();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = `rgb(${MC[0]},${MC[1]},${MC[2]})`;
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = 'destination-out';
+
+      for (let i = stamps.length-1; i >= 0; i--) {
+        const t = (now - stamps[i].born) / LIFE;
+        if (t >= 1) { stamps.splice(i, 1); continue; }
+        const ease = 1 - Math.pow(1-t, 3);
+        const r = R_START + (stamps[i].rmax - R_START)*ease;
+        carve(stamps[i].x, stamps[i].y, r, stamps[i].seed, 1 - t*t);
+      }
+
+      if (stamps.length) rafId = requestAnimationFrame(loop);
+      else { running = false; rafId = null; }
+    }
+
+    function startLoop() { if (!running) { running = true; rafId = requestAnimationFrame(loop); } }
+
+    function posFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      const cy = e.touches ? e.touches[0].clientY : e.clientY;
+      return { x: cx - rect.left, y: cy - rect.top };
+    }
+
+    function onEnter(e) { const p = posFromEvent(e); lastPos = p; stampAlong(p.x, p.y); startLoop(); }
+    function onMove(e) { e.preventDefault(); const p = posFromEvent(e); stampAlong(p.x, p.y); startLoop(); }
+    function onLeave() { lastPos = null; }
+
+    canvas.addEventListener('mouseenter', onEnter);
+    canvas.addEventListener('mousemove', onMove);
+    canvas.addEventListener('mouseleave', onLeave);
+    canvas.addEventListener('touchstart', onEnter, { passive: false });
+    canvas.addEventListener('touchmove', onMove, { passive: false });
+    canvas.addEventListener('touchend', onLeave);
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    const inkObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) resize();
+    }, { threshold: 0.05 });
+    inkObs.observe(canvas);
+  })();
+
+  /* ─ Soul Closing · WebGL Shader ─ */
+  (function () {
+    const canvas = document.querySelector('.soul-closing__canvas');
+    if (!canvas) return;
+    const gl = canvas.getContext('webgl2');
+    if (!gl) return;
+
+    function resize() {
+      const p = canvas.parentElement;
+      canvas.width  = p.clientWidth;
+      canvas.height = p.clientHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+
+    const vertSrc = `#version 300 es
+precision highp float;
+in vec4 position;
+void main(){gl_Position=position;}`;
+
+    const fragSrc = `#version 300 es
+precision highp float;
+out vec4 O;
+uniform vec2 resolution;
+uniform float time;
+#define FC gl_FragCoord.xy
+#define T time
+#define R resolution
+#define MN min(R.x,R.y)
+float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}
+float noise(in vec2 p){
+  vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);
+  float a=rnd(i),b=rnd(i+vec2(1,0)),c=rnd(i+vec2(0,1)),d=rnd(i+1.);
+  return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);
+}
+float fbm(vec2 p){
+  float t=.0,a=1.;mat2 m=mat2(1.,-.5,.2,1.2);
+  for(int i=0;i<5;i++){t+=a*noise(p);p*=2.*m;a*=.5;}
+  return t;
+}
+float clouds(vec2 p){
+  float d=1.,t=.0;
+  for(float i=.0;i<3.;i++){
+    float a=d*fbm(i*10.+p.x*.2+.2*(1.+i)*p.y+d+i*i+p);
+    t=mix(t,d,a);d=a;p*=2./(i+1.);
+  }
+  return t;
+}
+void main(void){
+  vec2 uv=(FC-.5*R)/MN,st=uv*vec2(2.,1.);
+  vec3 col=vec3(0.);
+  float bg=clouds(vec2(st.x+T*.25,-st.y));
+  uv*=1.-.25*(sin(T*.12)*.5+.5);
+  for(float i=1.;i<10.;i++){
+    uv+=.1*cos(i*vec2(.1+.01*i,.8)+i*i+T*.35+.1*uv.x);
+    vec2 p=uv;
+    float d=length(p);
+    vec3 gold=vec3(0.784,0.635,0.478);
+    vec3 spark=gold*(cos(sin(i)*vec3(1.1,0.7,0.3))*0.35+0.65);
+    col+=.0015/max(d,.01)*spark;
+    float b=noise(i+p+bg*1.5);
+    col+=.0025*b/length(max(p,vec2(b*p.x*.02,p.y)))*gold*.9;
+    vec3 navy=vec3(0.08+bg*.10,0.15+bg*.16,0.20+bg*.18);
+    col=mix(col,navy,clamp(d*.75,0.,1.));
+  }
+  col=clamp(col*1.2,0.,1.);
+  O=vec4(col,1.);
+}`;
+
+    function mkShader(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.warn('Soul shader error:', gl.getShaderInfoLog(s));
+        return null;
+      }
+      return s;
+    }
+
+    const vs = mkShader(gl.VERTEX_SHADER, vertSrc);
+    const fs = mkShader(gl.FRAGMENT_SHADER, fragSrc);
+    if (!vs || !fs) return;
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, vs);
+    gl.attachShader(prog, fs);
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.warn('Soul program error:', gl.getProgramInfoLog(prog));
+      return;
+    }
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,-1,-1,1,1,1,-1]), gl.STATIC_DRAW);
+
+    const posLoc = gl.getAttribLocation(prog, 'position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const resLoc  = gl.getUniformLocation(prog, 'resolution');
+    const timeLoc = gl.getUniformLocation(prog, 'time');
+
+    let rafId = null, visible = false;
+
+    function render(now) {
+      if (!visible) { rafId = null; return; }
+      gl.clearColor(0.18, 0.31, 0.39, 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.useProgram(prog);
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.uniform2f(resLoc, canvas.width, canvas.height);
+      gl.uniform1f(timeLoc, now * 1e-3);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      rafId = requestAnimationFrame(render);
+    }
+
+    const soulObs = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      if (visible && !rafId) { resize(); rafId = requestAnimationFrame(render); }
+    }, { threshold: 0.05 });
+    soulObs.observe(canvas.parentElement);
+
+    window.addEventListener('resize', () => { if (visible) resize(); }, { passive: true });
+    resize();
+  })();
+
+  /* ─ About Highlight · Typewriter ─ */
+  (function () {
+    const block   = document.getElementById('aboutHighlight');
+    const target  = document.getElementById('aboutTypeText');
+    const cursor  = document.getElementById('aboutTypeCursor');
+    const closeQ  = document.getElementById('aboutTypeClose');
+    if (!block || !target) return;
+
+    const fullText =
+      'I am a person who stands between Soul and AI\n\n' +
+      'Я — человек, который стоит между душой и искусственным интеллектом.\n' +
+      'Поэтому я создала Kati Agency.';
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let started = false, idx = 0, timer = null;
+
+    function finish() {
+      target.innerHTML = fullText.replace(/\n/g, '<br>');
+      cursor?.classList.add('is-done');
+      closeQ?.classList.add('is-visible');
+    }
+
+    function tick() {
+      if (idx >= fullText.length) {
+        finish();
+        return;
+      }
+      const ch = fullText[idx++];
+      target.innerHTML = fullText.slice(0, idx).replace(/\n/g, '<br>');
+      const delay = ch === '\n' ? 320 : (ch === ' ' ? 55 : 38);
+      timer = setTimeout(tick, delay);
+    }
+
+    function start() {
+      if (started) return;
+      started = true;
+      if (reduced) { finish(); return; }
+      tick();
+    }
+
+    const typeObs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        start();
+        typeObs.unobserve(block);
+      }
+    }, { threshold: 0.35 });
+    typeObs.observe(block);
+  })();
 </script>
 
 </body>
