@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Katie Agency · AI Media Agency нового поколения</title>
+<meta name="description" content="Создаём бренды, которые невозможно скопировать. Стратегия, психология личности, AI, эстетика и технологии — для коучей, психологов, наставников и экспертов мягких ниш.">
+<meta name="theme-color" content="#FAF7F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ─── Токены ─── */
+  :root {
+    --cream:    #FAF7F2;
+    --beige:    #F0E7DA;
+    --blue:     #BFD5E3;
+    --gold:     #C8A27A;
+    --gold-dk:  #a8845e;
+    --navy:     #2F4F63;
+    --navy-dk:  #243d4d;
+    --ink:      #1E1E1E;
+    --muted:    #5e5e5e;
+    --white:    #ffffff;
+    --r:        4px;
+    --r-lg:     10px;
+    --max:      1200px;
+    --serif:    'Cormorant Garamond', Georgia, serif;
+    --sans:     'Manrope', -apple-system, sans-serif;
+    --sh:       0 8px 32px rgba(47,79,99,.08);
+    --sh-lg:    0 20px 56px rgba(47,79,99,.13);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; font-size:16px; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--gold); color: #fff; }
+  img { max-width:100%; display:block; }
+  a { color:inherit; }
+
+  .container {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ─── Типографика ─── */
+  .label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+  }
+
+  h1 { font-family:var(--serif); font-size:clamp(40px,5.5vw,68px); font-weight:500; line-height:1.08; letter-spacing:-.02em; }
+  h2 { font-family:var(--serif); font-size:clamp(30px,4vw,50px); font-weight:500; line-height:1.15; letter-spacing:-.01em; }
+  h3 { font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:500; line-height:1.2; }
+
+  .sec { padding: 100px 0; }
+  .sec--beige  { background: var(--beige); }
+  .sec--navy   { background: var(--navy);  color: var(--cream); }
+  .sec--white  { background: var(--white); }
+
+  .sec__hd {
+    text-align: center;
+    max-width: 740px;
+    margin: 0 auto 64px;
+  }
+  .sec__hd .label { margin-bottom:20px; }
+  .sec__hd p {
+    margin-top:16px;
+    color: var(--muted);
+    font-size:17px;
+    line-height:1.75;
+  }
+  .sec--navy .sec__hd p { color:rgba(250,247,242,.72); }
+
+  /* ─── Кнопки ─── */
+  .btn {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: var(--r);
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform .2s, box-shadow .2s, background .2s, opacity .2s;
+  }
+  .btn--gold  { background:var(--gold); color:#fff; }
+  .btn--gold:hover { background:var(--gold-dk); transform:translateY(-2px); box-shadow:0 8px 28px rgba(200,162,122,.4); }
+  .btn--navy  { background:var(--navy); color:#fff; }
+  .btn--navy:hover { background:var(--navy-dk); transform:translateY(-2px); }
+  .btn--outline { background:transparent; border:1.5px solid var(--gold); color:var(--gold); }
+  .btn--outline:hover { background:rgba(200,162,122,.1); }
+  .btn--outline-light { background:transparent; border:1.5px solid rgba(250,247,242,.5); color:var(--cream); }
+  .btn--outline-light:hover { border-color:var(--cream); background:rgba(250,247,242,.1); }
+
+  .arrow-link {
+    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    text-decoration:none; color:var(--navy); display:inline-flex; align-items:center; gap:8px;
+    transition: gap .2s;
+  }
+  .arrow-link:hover { gap:14px; }
+  .arrow-link--light { color:rgba(250,247,242,.8); }
+
+  /* ─── Шапка ─── */
+  .hdr {
+    position: sticky; top:0; z-index:100;
+    background: rgba(250,247,242,.9);
+    backdrop-filter: blur(16px) saturate(1.5);
+    border-bottom: 1px solid rgba(200,162,122,.18);
+    transition: box-shadow .3s;
+  }
+  .hdr--scrolled { box-shadow: 0 2px 20px rgba(47,79,99,.08); }
+
+  .hdr__row {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .logo {
+    font-family: var(--serif);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    white-space: nowrap;
+    display:flex; flex-direction:column; align-items:flex-start; gap:1px;
+    line-height: 1.15;
+  }
+  .logo__top {
+    font-size: 18px;
+    letter-spacing: .35em;
+    font-weight: 500;
+  }
+  .logo__bottom {
+    font-size: 10px;
+    letter-spacing: .55em;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-weight: 500;
+  }
+
+  .nav { display:flex; align-items:center; gap:36px; }
+  .nav__list { display:flex; gap:28px; list-style:none; }
+  .nav__list a {
+    font-size: 11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+    text-decoration:none; color:var(--muted); transition:color .2s;
+  }
+  .nav__list a:hover { color:var(--navy); }
+  .nav__cta { flex-shrink:0; }
+
+  .burger { display:none; background:none; border:none; cursor:pointer; padding:8px; flex-direction:column; gap:5px; }
+  .burger span { display:block; width:22px; height:1.5px; background:var(--navy); transition:.3s; }
+
+  /* ─── Hero ─── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  /* Базовое фото */
+  .hero__bg {
+    position: absolute; inset: 0;
+    background: url('assets/hero-horse.jpg') center center / cover no-repeat;
+    z-index: 0;
+  }
+
+  /* Видео-атмосфера поверх фото — как в коде Turing */
+  .hero__video {
+    position: absolute;
+    top: -20%; left: 0;
+    width: 100%; height: 120%;
+    object-fit: cover;
+    z-index: 1;
+    mix-blend-mode: overlay;
+    opacity: .55;
+    pointer-events: none;
+  }
+
+  /* Атмосферные оверлеи */
+  .hero__atmo {
+    position: absolute; inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hero__atmo::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(250,247,242,.96) 0%,
+      rgba(250,247,242,.78) 30%,
+      rgba(250,247,242,.38) 52%,
+      rgba(250,247,242,.02) 70%,
+      transparent 100%
+    );
+  }
+  .hero__atmo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(47,79,99,.32) 0%,
+      rgba(47,79,99,.06) 30%,
+      transparent 58%
+    );
+  }
+  .hero__glow {
+    position: absolute; inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 55% 45% at 16% 90%,
+      rgba(200,162,122,.28) 0%,
+      transparent 68%
+    );
+  }
+  .hero__depth {
+    position: absolute; inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 50% 60% at 100% 0%,
+      rgba(47,79,99,.40) 0%,
+      transparent 62%
+    );
+  }
+
+  .hero__wrap {
+    position: relative; z-index: 3;
+    width: 100%;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 140px 40px 100px;
+  }
+
+  .hero__inner { max-width: 580px; }
+
+  .hero .label { margin-bottom: 24px; }
+
+  .hero h1 {
+    color: var(--navy);
+    margin-bottom: 28px;
+  }
+
+  .hero__lead {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.82;
+    margin-bottom: 44px;
+    max-width: 520px;
+  }
+
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+
+  /* ─── Полоса с текстом ─── */
+  .ticker-bar {
+    background: var(--navy);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-bar__inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+  }
+  .ticker-bar__item {
+    font-size: 10.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color: rgba(250,247,242,.6);
+    padding: 0 40px;
+  }
+  .ticker-bar__item--gold { color:var(--gold); }
+  @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ─── Для кого ─── */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 2px;
+    border: 1px solid rgba(200,162,122,.18);
+    border-radius: var(--r-lg);
+    overflow:hidden;
+  }
+  .aud-card {
+    padding: 40px 28px;
+    background: var(--white);
+    text-align: center;
+    transition: background .25s;
+  }
+  .aud-card:hover { background: var(--beige); }
+  .aud-card__icon {
+    width:52px; height:52px; margin:0 auto 20px;
+    color:var(--gold);
+  }
+  .aud-card h3 {
+    font-family:var(--sans); font-size:11px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--navy);
+    margin-bottom:12px;
+  }
+  .aud-card p { font-size:14px; color:var(--muted); line-height:1.65; }
+
+  /* ─── НАШ ПОДХОД ─── */
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .approach-visual {
+    position: relative;
+    aspect-ratio: 3/4;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: linear-gradient(160deg, var(--beige), var(--blue));
+    box-shadow: var(--sh-lg);
+  }
+  .approach-visual img {
+    width:100%; height:100%; object-fit:cover;
+  }
+  .approach-visual__ph {
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:16px;
+    text-align:center; padding:48px;
+    color:var(--navy);
+  }
+  .approach-visual__ph svg { opacity:.35; }
+  .approach-visual__ph span {
+    font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.6;
+  }
+  .approach-label {
+    position:absolute; bottom:28px; left:28px; right:28px;
+    background:rgba(250,247,242,.92);
+    backdrop-filter:blur(8px);
+    border-radius:var(--r);
+    padding:16px 20px;
+    font-size:13px; color:var(--navy); font-weight:500;
+    border-left:3px solid var(--gold);
+  }
+
+  .approach-text .label { margin-bottom:24px; }
+  .approach-text h2 { color:var(--navy); margin-bottom:24px; }
+  .approach-text p { font-size:16px; color:var(--muted); line-height:1.8; margin-bottom:20px; }
+  .approach-text p strong { color:var(--navy); }
+  .approach-steps {
+    margin-top:36px;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .approach-step {
+    display:flex; align-items:flex-start; gap:20px;
+    padding:20px;
+    background:var(--white);
+    border-radius:var(--r);
+    border-left:3px solid transparent;
+    transition:border-color .2s, background .2s;
+  }
+  .approach-step:hover { border-color:var(--gold); background:var(--beige); }
+  .approach-step__num {
+    font-family:var(--serif); font-size:32px; font-weight:600;
+    color:var(--blue); line-height:1; flex-shrink:0;
+  }
+  .approach-step h4 {
+    font-family:var(--sans); font-size:11px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--navy);
+    margin-bottom:4px;
+  }
+  .approach-step p { font-size:13px; color:var(--muted); margin:0; line-height:1.55; }
+
+  /* ─── SOUL Method ─── */
+  .soul-grid {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 0;
+    border-radius: var(--r-lg);
+    overflow:hidden;
+    box-shadow: var(--sh-lg);
+  }
+  .soul-card {
+    padding: 52px 36px;
+    display:flex; flex-direction:column; gap:24px;
+    transition: background .3s;
+  }
+  .soul-card:nth-child(1) { background:var(--navy); color:var(--cream); }
+  .soul-card:nth-child(2) { background:var(--navy-dk); color:var(--cream); }
+  .soul-card:nth-child(3) { background:var(--gold-dk); color:var(--cream); }
+  .soul-card:nth-child(4) { background:var(--gold); color:var(--cream); }
+
+  .soul-card__letter {
+    font-family: var(--serif);
+    font-size: 96px;
+    font-weight: 600;
+    line-height: 1;
+    opacity: .18;
+    margin-bottom: -8px;
+  }
+  .soul-card__word {
+    font-size: 10.5px; font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+    opacity:.7;
+  }
+  .soul-card h3 {
+    font-family:var(--serif); font-size:22px; font-weight:500;
+    color: inherit; line-height:1.2;
+  }
+  .soul-card p { font-size:14px; line-height:1.7; opacity:.85; }
+
+  .soul-method__header .label { margin-bottom:20px; }
+  .soul-method__header h2 { color:var(--navy); margin-bottom:12px; }
+  .soul-method__header .sub {
+    font-family:var(--serif); font-size:20px; font-style:italic;
+    color:var(--muted); margin-bottom:56px; display:block;
+  }
+
+  /* ─── Обо мне ─── */
+  .about-split {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-photo {
+    position:sticky; top:100px;
+    aspect-ratio:3/4;
+    border-radius:var(--r-lg);
+    overflow:hidden;
+    background:var(--beige);
+    box-shadow:var(--sh-lg);
+  }
+  .about-photo img { width:100%; height:100%; object-fit:cover; }
+  .about-photo__ph {
+    width:100%; height:100%; min-height:520px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:16px; padding:40px; text-align:center;
+    background: linear-gradient(170deg,var(--beige) 0%,var(--blue) 100%);
+    color:var(--navy);
+  }
+  .about-photo__ph svg { opacity:.32; }
+  .about-photo__ph strong { font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.7; }
+  .about-photo__ph p { font-size:13px; color:var(--muted); line-height:1.5; }
+
+  .about-text .label { margin-bottom:20px; }
+  .about-text h2 { color:var(--navy); margin-bottom:32px; }
+  .about-text p { font-size:16px; color:var(--muted); line-height:1.82; margin-bottom:22px; }
+  .about-text p strong { color:var(--navy); }
+
+  .about-highlight {
+    background: var(--navy);
+    color: var(--cream);
+    border-radius:var(--r-lg);
+    padding:36px;
+    margin-top:36px;
+    display:flex; gap:24px; align-items:flex-start;
+  }
+  .about-highlight__quote {
+    font-family:var(--serif); font-size:60px; line-height:.7;
+    color:var(--gold); flex-shrink:0; margin-top:4px;
+  }
+  .about-highlight p {
+    font-family:var(--serif); font-size:20px; font-style:italic;
+    line-height:1.55; color:var(--cream); margin:0;
+    font-weight:400;
+  }
+
+  /* ─── Услуги / экосистема ─── */
+  .ecosystem-intro {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 80px;
+    padding-bottom: 80px;
+    border-bottom: 1px solid rgba(200,162,122,.2);
+  }
+  .ecosystem-intro__text .label { margin-bottom:20px; }
+  .ecosystem-intro__text h2 { color:var(--navy); margin-bottom:20px; }
+  .ecosystem-intro__text p { font-size:16px; color:var(--muted); line-height:1.8; }
+
+  .ecosystem-promo {
+    background:var(--navy);
+    border-radius:var(--r-lg);
+    padding:48px 36px;
+    color:var(--cream);
+    text-align:center;
+  }
+  .ecosystem-promo .label { margin-bottom:16px; color:var(--gold); }
+  .ecosystem-promo h3 { font-family:var(--serif); font-size:28px; color:var(--cream); margin-bottom:8px; }
+  .ecosystem-promo__price {
+    font-family:var(--serif); font-size:56px; font-weight:600; color:var(--gold);
+    line-height:1; margin:16px 0 8px;
+  }
+  .ecosystem-promo p { font-size:14px; opacity:.75; line-height:1.65; margin-bottom:28px; }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .svc-card {
+    background:var(--white);
+    border-radius:var(--r-lg);
+    border:1px solid rgba(200,162,122,.2);
+    padding:40px 32px;
+    display:flex; flex-direction:column;
+    transition:border-color .25s, box-shadow .25s, transform .25s;
+  }
+  .svc-card:hover {
+    border-color:var(--gold);
+    box-shadow:var(--sh);
+    transform:translateY(-3px);
+  }
+  .svc-card--featured {
+    background:var(--navy); color:var(--cream);
+    border-color:var(--navy);
+  }
+  .svc-card--featured:hover { border-color:var(--gold); }
+
+  .svc-card__price {
+    font-family:var(--serif); font-size:52px; font-weight:600;
+    color:var(--gold); line-height:1; margin-bottom:4px;
+  }
+  .svc-card__meta {
+    font-size:11px; letter-spacing:.06em; color:var(--muted);
+    margin-bottom:24px;
+  }
+  .svc-card--featured .svc-card__meta { color:rgba(250,247,242,.55); }
+
+  .svc-card h3 {
+    font-family:var(--sans); font-size:12px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase;
+    color:var(--navy); margin-bottom:12px;
+  }
+  .svc-card--featured h3 { color:var(--cream); }
+
+  .svc-card__desc {
+    font-size:15px; color:var(--muted); line-height:1.75;
+    margin-bottom:24px; flex:1;
+  }
+  .svc-card--featured .svc-card__desc { color:rgba(250,247,242,.78); }
+
+  .svc-card__list {
+    list-style:none; margin-bottom:32px;
+    font-size:13px; color:var(--muted);
+  }
+  .svc-card--featured .svc-card__list { color:rgba(250,247,242,.7); }
+  .svc-card__list li {
+    padding:5px 0 5px 18px; position:relative;
+  }
+  .svc-card__list li::before {
+    content:'·'; position:absolute; left:0;
+    color:var(--gold); font-weight:700; font-size:18px; line-height:1.2;
+  }
+  .svc-card .btn { align-self:flex-start; margin-top:auto; }
+
+  .svc-card--ecosystem {
+    grid-column: span 3;
+    background: linear-gradient(135deg, var(--navy-dk), var(--navy));
+    color:var(--cream);
+    border:none;
+    padding:56px 48px;
+    flex-direction:row;
+    align-items:center;
+    gap:64px;
+  }
+  .svc-card--ecosystem:hover { transform:none; }
+  .svc-card--ecosystem__left { flex:1; }
+  .svc-card--ecosystem__left h3 { color:var(--cream); font-size:13px; letter-spacing:.12em; }
+  .svc-card--ecosystem__left .title {
+    font-family:var(--serif); font-size:clamp(28px,3vw,38px); font-weight:500;
+    color:var(--cream); line-height:1.2; margin:12px 0 20px;
+  }
+  .svc-card--ecosystem__left p { font-size:15px; opacity:.75; line-height:1.75; max-width:480px; }
+  .svc-card--ecosystem__right { flex-shrink:0; text-align:center; }
+  .svc-card--ecosystem__right .price-label {
+    font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    opacity:.6; margin-bottom:8px; display:block;
+  }
+  .svc-card--ecosystem__right .price-val {
+    font-family:var(--serif); font-size:20px; color:var(--gold);
+    display:block; margin-bottom:28px;
+  }
+
+  /* ─── Отзывы ─── */
+  .reviews-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .review-card {
+    background:var(--white);
+    border-radius:var(--r-lg);
+    padding:40px 32px;
+    box-shadow:var(--sh);
+    display:flex; flex-direction:column; gap:20px;
+    transition:transform .25s, box-shadow .25s;
+  }
+  .review-card:hover { transform:translateY(-4px); box-shadow:var(--sh-lg); }
+  .review-card--wide { grid-column:span 2; }
+
+  .review-card__stars {
+    display:flex; gap:4px; color:var(--gold);
+    font-size:16px;
+  }
+  .review-card__text {
+    font-family:var(--serif); font-size:18px; font-style:italic;
+    line-height:1.6; color:var(--navy); flex:1;
+  }
+  .review-card__ph {
+    font-family:var(--serif); font-size:17px; font-style:italic;
+    color:var(--muted); line-height:1.65; flex:1;
+    opacity:.55;
+  }
+  .review-card__author {
+    display:flex; align-items:center; gap:14px;
+    padding-top:20px;
+    border-top:1px solid rgba(200,162,122,.18);
+  }
+  .review-card__avatar {
+    width:44px; height:44px; border-radius:50%;
+    background:linear-gradient(135deg,var(--beige),var(--blue));
+    flex-shrink:0;
+    overflow:hidden;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--navy); font-size:11px; font-weight:700; letter-spacing:.06em;
+  }
+  .review-card__name { font-size:13px; font-weight:700; color:var(--navy); margin-bottom:2px; }
+  .review-card__role { font-size:11px; color:var(--muted); letter-spacing:.04em; }
+  .review-card__tag {
+    align-self:flex-start;
+    font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); background:rgba(200,162,122,.12);
+    padding:5px 10px; border-radius:var(--r);
+  }
+
+  /* ─── Цитата / фото основателя ─── */
+  .founder-split {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    min-height:560px;
+  }
+  .founder-split__quote {
+    background:var(--navy); color:var(--cream);
+    padding:72px 64px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  .founder-split__qmark {
+    font-family:var(--serif); font-size:140px; line-height:.55;
+    color:var(--gold); margin-bottom:24px;
+  }
+  .founder-split__qtext {
+    font-family:var(--serif); font-size:clamp(22px,2.4vw,30px);
+    font-style:italic; line-height:1.45; margin-bottom:32px;
+  }
+  .founder-split__qauthor {
+    font-size:10.5px; font-weight:700; letter-spacing:.16em;
+    text-transform:uppercase; color:var(--gold);
+  }
+  .founder-split__photo {
+    position:relative; overflow:hidden;
+    background:var(--beige);
+  }
+  .founder-split__photo img {
+    width:100%; height:100%; object-fit:cover; min-height:560px;
+  }
+  .founder-split__ph {
+    width:100%; height:100%; min-height:560px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:16px; text-align:center; padding:48px;
+    background:linear-gradient(160deg,var(--beige),var(--blue));
+    color:var(--navy);
+  }
+  .founder-split__ph svg { opacity:.35; }
+  .founder-split__ph span {
+    font-size:11px; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; opacity:.65;
+  }
+
+  /* ─── FAQ ─── */
+  .faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:2px; }
+  .faq-item {
+    border-radius:var(--r);
+    overflow:hidden;
+    background:var(--white);
+    border:1px solid rgba(200,162,122,.15);
+    transition:border-color .2s;
+  }
+  .faq-item.open { border-color:var(--gold); }
+  .faq-btn {
+    width:100%; background:none; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    padding:24px 28px; text-align:left;
+    font-family:var(--sans); font-size:15px; font-weight:600; color:var(--navy);
+    transition:color .2s;
+  }
+  .faq-btn:hover { color:var(--gold-dk); }
+  .faq-icon {
+    width:24px; height:24px; flex-shrink:0;
+    border:1.5px solid var(--gold); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s, background .2s;
+    color:var(--gold);
+  }
+  .faq-item.open .faq-icon { transform:rotate(45deg); background:var(--gold); color:#fff; }
+  .faq-body {
+    max-height:0; overflow:hidden;
+    transition:max-height .4s ease, padding .3s;
+    padding:0 28px;
+    font-size:15px; color:var(--muted); line-height:1.8;
+  }
+  .faq-body p { padding-bottom:24px; }
+  .faq-item.open .faq-body { max-height:400px; }
+
+  /* ─── Финальный блок ─── */
+  .final-cta {
+    text-align:center;
+    padding:120px 40px;
+    background:linear-gradient(160deg,var(--navy-dk) 0%,var(--navy) 100%);
+    color:var(--cream);
+    position:relative;
+    overflow:hidden;
+  }
+  .final-cta__deco {
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,162,122,.12) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .final-cta .label { margin-bottom:24px; color:var(--gold); }
+  .final-cta h2 {
+    font-family:var(--serif);
+    font-size:clamp(36px,5vw,64px);
+    line-height:1.1; color:var(--cream);
+    margin-bottom:24px;
+    max-width:800px; margin-left:auto; margin-right:auto;
+  }
+  .final-cta h2 em { font-style:italic; color:var(--gold); }
+  .final-cta p {
+    font-size:17px; opacity:.8; line-height:1.75;
+    max-width:540px; margin:0 auto 48px;
+  }
+  .final-cta__btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ─── Футер ─── */
+  .ftr { padding:72px 0 40px; border-top:1px solid rgba(200,162,122,.18); }
+  .ftr__top {
+    display:grid; grid-template-columns:1fr auto 1fr;
+    align-items:center; gap:32px; margin-bottom:48px;
+  }
+  .ftr__tagline {
+    text-align:center;
+    font-size:10.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .ftr__socials { display:flex; gap:12px; justify-content:flex-end; }
+  .ftr__socials a {
+    width:42px; height:42px; border-radius:50%;
+    border:1px solid rgba(47,79,99,.15);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--navy); transition:border-color .2s,color .2s;
+  }
+  .ftr__socials a:hover { border-color:var(--gold); color:var(--gold); }
+  .ftr__bottom {
+    text-align:center; font-size:12px; color:var(--muted);
+    border-top:1px solid rgba(200,162,122,.12); padding-top:24px;
+  }
+
+  /* ─── Кейсы ─── */
+  .cases-list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .case-item {
+    background: var(--white);
+    border-radius: var(--r-lg);
+    border: 1px solid rgba(200,162,122,.18);
+    overflow: hidden;
+    transition: box-shadow .3s;
+  }
+  .case-item:hover { box-shadow: var(--sh-lg); }
+  .case-item--dark { background: var(--navy); color: var(--cream); border-color:var(--navy); }
+
+  .case-item__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 40px;
+    border-bottom: 1px solid rgba(200,162,122,.15);
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .case-item--dark .case-item__header { border-bottom-color: rgba(250,247,242,.1); }
+
+  .case-item__meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+  .case-tag {
+    font-size: 10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+    background:var(--gold); color:#fff;
+    padding:5px 12px; border-radius:var(--r);
+  }
+  .case-service {
+    font-size:12px; font-weight:600; letter-spacing:.04em;
+    color:var(--muted);
+  }
+  .case-item--dark .case-service { color:rgba(250,247,242,.55); }
+
+  .case-item__result-pill {
+    font-size:12px; font-weight:700; letter-spacing:.04em;
+    color:var(--gold-dk); background:rgba(200,162,122,.12);
+    padding:7px 16px; border-radius:var(--r);
+    white-space:nowrap;
+  }
+  .case-item--dark .case-item__result-pill { background:rgba(200,162,122,.2); color:var(--gold); }
+
+  .case-item__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  .case-item__left {
+    padding: 40px;
+    border-right: 1px solid rgba(200,162,122,.12);
+  }
+  .case-item--dark .case-item__left { border-right-color:rgba(250,247,242,.08); }
+
+  .case-item__right { padding: 40px; }
+
+  .case-item__left h3 {
+    font-family: var(--serif);
+    font-size: clamp(17px,1.8vw,20px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.45;
+    margin-bottom: 28px;
+    color: var(--navy);
+  }
+  .case-item--dark .case-item__left h3 { color:var(--cream); }
+
+  .case-block {
+    border-radius: var(--r);
+    padding: 24px 28px;
+  }
+  .case-block--before {
+    background: rgba(200,162,122,.08);
+    border-left: 3px solid rgba(200,162,122,.4);
+  }
+  .case-item--dark .case-block--before { background:rgba(250,247,242,.05); border-left-color:rgba(250,247,242,.2); }
+
+  .case-block--after {
+    background: rgba(47,79,99,.05);
+    border-left: 3px solid var(--navy);
+    margin-bottom: 24px;
+  }
+  .case-item--dark .case-block--after { background:rgba(250,247,242,.07); border-left-color:var(--gold); }
+
+  .case-block__title {
+    font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:12px;
+  }
+  .case-block p {
+    font-size:14px; color:var(--muted); line-height:1.75; margin-bottom:16px;
+  }
+  .case-item--dark .case-block p { color:rgba(250,247,242,.72); }
+
+  .case-facts {
+    list-style: none;
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+  }
+  .case-item--dark .case-facts { color:rgba(250,247,242,.65); }
+
+  .case-facts li { padding-left:18px; position:relative; line-height:1.5; }
+  .case-facts li::before { content:'—'; position:absolute; left:0; color:var(--gold); font-size:12px; }
+
+  .case-facts--after li::before { content:'✓'; color:#4a9b6f; font-weight:700; }
+  .case-item--dark .case-facts--after li::before { color:#6dba8a; }
+
+  .case-quote {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 24px 28px;
+    border-radius: var(--r);
+    font-family: var(--serif);
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.55;
+    position: relative;
+  }
+  .case-item--dark .case-quote { background:rgba(250,247,242,.08); }
+  .case-quote cite {
+    display:block; margin-top:14px;
+    font-style:normal; font-size:11px; font-weight:700;
+    letter-spacing:.1em; text-transform:uppercase;
+    color:var(--gold); font-family:var(--sans);
+  }
+
+  @media (max-width:900px) {
+    .case-item__body { grid-template-columns:1fr; }
+    .case-item__left { border-right:none; border-bottom:1px solid rgba(200,162,122,.12); }
+    .case-item--dark .case-item__left { border-bottom-color:rgba(250,247,242,.08); }
+    .case-item__header { padding:20px 24px; }
+    .case-item__left,
+    .case-item__right { padding:28px 24px; }
+  }
+
+  /* ─── Анимация появления ─── */
+  .fade-in {
+    opacity:0; transform:translateY(28px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .fade-in.visible { opacity:1; transform:translateY(0); }
+  .fade-in--delay-1 { transition-delay:.1s; }
+  .fade-in--delay-2 { transition-delay:.2s; }
+  .fade-in--delay-3 { transition-delay:.3s; }
+  .fade-in--delay-4 { transition-delay:.4s; }
+
+  /* ─── Responsive ─── */
+  @media (max-width:1024px) {
+    .approach-grid { grid-template-columns:1fr; gap:56px; }
+    .about-split { grid-template-columns:1fr; }
+    .about-photo { position:static; max-width:380px; }
+    .soul-grid { grid-template-columns:repeat(2,1fr); }
+    .services-list { grid-template-columns:repeat(2,1fr); }
+    .svc-card--ecosystem { grid-column:span 2; flex-direction:column; gap:40px; }
+    .reviews-grid { grid-template-columns:1fr 1fr; }
+    .review-card--wide { grid-column:span 2; }
+    .ecosystem-intro { grid-template-columns:1fr; }
+    .founder-split { grid-template-columns:1fr; }
+    .founder-split__ph,
+    .founder-split__photo img { min-height:400px; }
+    .ftr__top { grid-template-columns:1fr; text-align:center; }
+    .ftr__socials { justify-content:center; }
+    .audience-grid { grid-template-columns:repeat(2,1fr); }
+  }
+
+  @media (max-width:768px) {
+    .container { padding:0 24px; }
+    .hdr__row { padding:18px 24px; }
+    .nav__list,.nav__cta { display:none; }
+    .burger { display:flex; }
+    .nav--open {
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--cream);
+      border-bottom:1px solid rgba(200,162,122,.2);
+      flex-direction:column; align-items:stretch;
+    }
+    .nav--open .nav__list {
+      display:flex; flex-direction:column;
+      padding:20px 24px; gap:14px;
+    }
+    .nav--open .nav__cta { display:flex; padding:4px 24px 24px; }
+    .nav { position:relative; }
+    .hero__wrap { padding:120px 24px 80px; }
+    .sec { padding:72px 0; }
+    .soul-grid { grid-template-columns:1fr 1fr; }
+    .services-list { grid-template-columns:1fr; }
+    .svc-card--ecosystem { grid-column:span 1; }
+    .reviews-grid { grid-template-columns:1fr; }
+    .review-card--wide { grid-column:span 1; }
+    .audience-grid { grid-template-columns:1fr 1fr; gap:0; }
+    .founder-split { grid-template-columns:1fr; }
+    .founder-split__quote { padding:56px 32px; }
+    .final-cta { padding:80px 24px; }
+    .ftr__top { gap:24px; }
+  }
+
+  @media (max-width:480px) {
+    .soul-grid { grid-template-columns:1fr; }
+    .audience-grid { grid-template-columns:1fr; }
+    h1 { font-size:36px; }
+    h2 { font-size:28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="hdr" id="hdr">
+  <div class="hdr__row">
+    <a href="#" class="logo">
+      <span class="logo__top">Kati</span>
+      <span class="logo__bottom">Agency</span>
+    </a>
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="#approach">Подход</a></li>
+        <li><a href="#soul">SOUL Method</a></li>
+        <li><a href="#about">Обо мне</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a href="#contact" class="btn btn--gold nav__cta">Начать путь</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero__bg" role="img" aria-label="Девушка на коне у моря — метафора свободы и вершин"></div>
+  <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+    <source src="https://mybycketvercelprojecttest.s3.sa-east-1.amazonaws.com/animation-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero__atmo" aria-hidden="true"></div>
+  <div class="hero__glow"  aria-hidden="true"></div>
+  <div class="hero__depth" aria-hidden="true"></div>
+  <div class="hero__wrap">
+    <div class="hero__inner">
+      <span class="label fade-in">AI Media Agency нового поколения</span>
+      <h1 class="fade-in fade-in--delay-1">Создаём бренды, которые невозможно скопировать.</h1>
+      <p class="hero__lead fade-in fade-in--delay-2">Katie Agency — место, где стратегия, психология личности, искусственный интеллект, визуальная эстетика и современные технологии объединяются в единую систему. Мы помогаем коучам, психологам, наставникам, консультантам и экспертам мягких ниш находить собственный голос и превращать его в бренд, который отражает человека и привлекает нужных клиентов.</p>
+      <div class="hero__actions fade-in fade-in--delay-3">
+        <a href="#contact" class="btn btn--gold">Начать путь проявленности</a>
+        <a href="#soul" class="arrow-link">SOUL Method <span>→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TICKER ══════════ -->
+<div class="ticker-bar" aria-hidden="true">
+  <div class="ticker-bar__inner">
+    <span class="ticker-bar__item ticker-bar__item--gold">Katie Agency</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">AI Media Agency</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--gold">SOUL Method</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">Личный бренд</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--gold">Эксперты мягких ниш</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">Стратегия · Психология · AI · Эстетика</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--gold">Katie Agency</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">AI Media Agency</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--gold">SOUL Method</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">Личный бренд</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item ticker-bar__item--gold">Эксперты мягких ниш</span>
+    <span class="ticker-bar__item">·</span>
+    <span class="ticker-bar__item">Стратегия · Психология · AI · Эстетика</span>
+    <span class="ticker-bar__item">·</span>
+  </div>
+</div>
+
+<!-- ══════════ ДЛЯ КОГО ══════════ -->
+<section class="sec sec--beige">
+  <div class="container">
+    <div class="sec__hd fade-in">
+      <span class="label">Для кого</span>
+      <h2>Помогаем тем, кто несёт глубину</h2>
+      <p>Мы работаем со специалистами помогающих профессий — теми, кто обладает знаниями и талантом, но ещё не научился показать это миру.</p>
+    </div>
+    <div class="audience-grid fade-in">
+      <article class="aud-card">
+        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
+          <circle cx="26" cy="18" r="9"/><path d="M8 46c0-9.9 8.1-18 18-18s18 8.1 18 18"/>
+          <path d="M32 28 Q36 34 34 40" stroke-dasharray="3 3"/>
+        </svg>
+        <h3>Психологи</h3>
+        <p>Создаём бренд, который вызывает доверие и притягивает клиентов без потери этики и глубины практики.</p>
+      </article>
+      <article class="aud-card">
+        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M26 8 L30 20 L42 20 L32 28 L36 40 L26 32 L16 40 L20 28 L10 20 L22 20 Z"/>
+        </svg>
+        <h3>Коучи</h3>
+        <p>Упаковываем экспертность в структуру, которая ведёт к росту, масштабированию и системным запускам.</p>
+      </article>
+      <article class="aud-card">
+        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M26 6 C26 6 16 20 16 30 a10 10 0 0 0 20 0 C36 20 26 6 26 6"/>
+          <circle cx="26" cy="30" r="4"/>
+        </svg>
+        <h3>Эзотерики</h3>
+        <p>Передаём глубину и смыслы через эстетику и гармонию — чтобы бренд совпадал с сутью практики.</p>
+      </article>
+      <article class="aud-card">
+        <svg class="aud-card__icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.2">
+          <rect x="10" y="16" width="32" height="26" rx="3"/>
+          <path d="M20 16 V12 a6 6 0 0 1 12 0 v4"/>
+          <line x1="26" y1="26" x2="26" y2="32"/>
+          <line x1="23" y1="29" x2="29" y2="29"/>
+        </svg>
+        <h3>Эксперты личного бренда</h3>
+        <p>Выделяем на фоне конкурентов и делаем узнаваемым в нише — от позиционирования до выхода в мир.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ НАШ ПОДХОД ══════════ id="approach" ══════════ -->
+<section class="sec sec--white" id="approach">
+  <div class="container">
+    <div class="approach-grid">
+      <div class="approach-visual fade-in">
+        <img src="assets/katrin-about.jpg" alt="Катрин Журавлёва">
+        <div class="approach-label">«Мы не создаём маски — мы помогаем человеку увидеть себя настоящего»</div>
+      </div>
+
+      <div class="approach-text fade-in fade-in--delay-2">
+        <span class="label">Наш подход</span>
+        <h2>Личный бренд начинается не с маркетинга.</h2>
+        <p>Большинство экспертов начинают с логотипа, визуала и контента.</p>
+        <p>Но если человек не понимает себя, свои смыслы, ценности и уникальность — никакая стратегия не даст долгосрочного результата.</p>
+        <p><strong>Поэтому мы начинаем с главного — с личности.</strong></p>
+        <p>Мы помогаем человеку увидеть свои сильные стороны, понять свою историю, раскрыть уникальность — и только потом превращаем всё это в продукты, контент, визуальную систему, AI-инструменты и сайт.</p>
+
+        <div class="approach-steps">
+          <div class="approach-step">
+            <div class="approach-step__num">01</div>
+            <div>
+              <h4>Познание себя</h4>
+              <p>Распаковка личности, ценностей, сильных сторон и уникальности</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="approach-step__num">02</div>
+            <div>
+              <h4>Стратегия и смыслы</h4>
+              <p>Карта смыслов, позиционирование, аудитория и продуктовая линейка</p>
+            </div>
+          </div>
+          <div class="approach-step">
+            <div class="approach-step__num">03</div>
+            <div>
+              <h4>Воплощение и рост</h4>
+              <p>Визуал, сайт, контент, AI-инструменты и системный выход в мир</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SOUL METHOD ══════════ -->
+<section class="sec sec--beige" id="soul">
+  <div class="container">
+    <div class="soul-method__header fade-in">
+      <span class="label">Авторская система</span>
+      <h2>SOUL Method</h2>
+      <span class="sub">Авторская система построения личного бренда</span>
+    </div>
+
+    <div class="sec__hd fade-in" style="margin-bottom:40px;max-width:640px">
+      <p>В основе Katie Agency лежит авторский метод SOUL — не про создание образа, а про раскрытие того, кем человек уже является.</p>
+    </div>
+
+    <div class="soul-grid fade-in">
+      <div class="soul-card">
+        <div class="soul-card__letter">S</div>
+        <span class="soul-card__word">Soul · Душа</span>
+        <h3>Кто ты на самом деле</h3>
+        <p>Глубинная работа с ценностями, личностью и внутренней природой. Без масок — только то, что по-настоящему твоё.</p>
+      </div>
+      <div class="soul-card">
+        <div class="soul-card__letter">O</div>
+        <span class="soul-card__word">Origin · Происхождение</span>
+        <h3>Твоя история, опыт и путь</h3>
+        <p>Всё, что ты пережил — это ресурс, а не груз. Мы находим в твоей истории силу и превращаем её в бренд-нарратив.</p>
+      </div>
+      <div class="soul-card">
+        <div class="soul-card__letter">U</div>
+        <span class="soul-card__word">Uniqueness · Уникальность</span>
+        <h3>Твои сильные стороны</h3>
+        <p>Распаковка экспертности, поиск уникального сочетания качеств — то, что делает тебя незаменимым для конкретного клиента.</p>
+      </div>
+      <div class="soul-card">
+        <div class="soul-card__letter">L</div>
+        <span class="soul-card__word">Launch · Запуск</span>
+        <h3>Проявить себя через бренд и технологии</h3>
+        <p>Продукты, контент, визуальная система, AI-инструменты и сайт — всё выстроено под твою уникальность.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:48px" class="fade-in">
+      <p style="font-size:16px;color:var(--muted);max-width:580px;margin:0 auto 28px;line-height:1.8">После прохождения этого пути появляется не только понимание себя, но и ясность — как реализовать свои идеи в реальном мире.</p>
+      <a href="#services" class="btn btn--navy">Посмотреть услуги</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ОБО МНЕ ══════════ -->
+<section class="sec sec--white" id="about">
+  <div class="container">
+    <div class="about-split">
+      <div class="about-photo fade-in">
+        <img src="assets/katrin-about.jpg" alt="Катрин Журавлёва — основатель Katie Agency">
+      </div>
+
+      <div class="about-text fade-in fade-in--delay-2">
+        <span class="label">Основатель агентства</span>
+        <h2>Привет, я Катрин Журавлёва.</h2>
+
+        <p>Меня зовут Катрин Журавлёва, и я основатель Katie Agency.</p>
+        <p>Мой путь начался совсем не в маркетинге.</p>
+        <p>По первому образованию я юрист и более 15 лет работала в одной из крупнейших компаний Беларуси. Я занималась переговорами, тендерами, стратегическими решениями и построением процессов.</p>
+        <p><strong>В 35 лет моя жизнь полностью изменилась.</strong></p>
+        <p>Переезд с семьёй в другую страну. Освоение более семи новых профессий. Поиск новых смыслов. Поиск себя заново.</p>
+        <p>Именно тогда я заметила одну закономерность: большинство талантливых людей не знают своей настоящей ценности. Они обладают знаниями, опытом и талантом — но не умеют показать это миру.</p>
+        <p>Несколько лет я изучала психологию, цифровую психологию, маркетинг, брендинг, современные технологии и искусственный интеллект. И постепенно пришла к пониманию:</p>
+        <p><strong>Личный бренд начинается не с продвижения. Он начинается с понимания себя.</strong></p>
+        <p>Сегодня я объединяю смыслы, стратегию, цифровую психологию, современные технологии, искусственный интеллект и визуальный брендинг, чтобы помогать людям находить собственный путь проявленности.</p>
+        <p>Я работаю со специалистами помогающих профессий, потому что знаю: помогая одному сильному эксперту стать видимым, уверенным и востребованным, я помогаю всем тем людям, которым он сможет изменить жизнь своей работой.</p>
+
+        <div class="about-highlight">
+          <div class="about-highlight__quote">"</div>
+          <p>Я верю, что мир счастливых людей начинается с тех, кто помогает другим становиться счастливее. Именно поэтому существует Katie Agency.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ЦИТАТА + ФОТО ══════════ -->
+<section class="founder-split">
+  <div class="founder-split__quote fade-in">
+    <div class="founder-split__qmark">"</div>
+    <p class="founder-split__qtext">Я вижу суть, чувствую эксперта и превращаю это в сильный бренд, который притягивает клиентов, открывает двери и меняет жизни.</p>
+    <p class="founder-split__qauthor">Катрин Журавлёва · основатель Katie Agency</p>
+  </div>
+  <div class="founder-split__photo">
+    <img src="assets/katrin-hero.jpg" alt="Катрин Журавлёва с лошадью">
+  </div>
+</section>
+
+<!-- ══════════ УСЛУГИ ══════════ -->
+<section class="sec sec--beige" id="services">
+  <div class="container">
+    <div class="ecosystem-intro fade-in">
+      <div class="ecosystem-intro__text">
+        <span class="label">Услуги</span>
+        <h2>Экосистема личного бренда</h2>
+        <p>От первого шага самопознания до полноценного бренда с контентом, продуктами, AI-инструментами и собственным сайтом. Каждый продукт — часть единого пути.</p>
+      </div>
+      <div class="ecosystem-promo">
+        <span class="label">Первый шаг</span>
+        <h3>Soul Method Workbook</h3>
+        <div class="ecosystem-promo__price">€15</div>
+        <p>41 страница глубокой распаковки личности с 7 AI-помощниками. Самостоятельная работа по авторскому методу SOUL.</p>
+        <a href="#contact" class="btn btn--gold">Получить воркбук</a>
+      </div>
+    </div>
+
+    <div class="services-list">
+      <!-- Диагностическая сессия -->
+      <article class="svc-card fade-in">
+        <span class="label">Онлайн · 40–60 минут</span>
+        <div class="svc-card__price">€70</div>
+        <p class="svc-card__meta">Диагностическая сессия</p>
+        <h3>Диагностическая сессия</h3>
+        <p class="svc-card__desc">Находим то, что мешает двигаться дальше, и составляем конкретный план действий. Клиент уходит с ясностью.</p>
+        <ul class="svc-card__list">
+          <li>Что мешает двигаться дальше</li>
+          <li>Основные ограничения</li>
+          <li>Сильные стороны и точки роста</li>
+          <li>Конкретный план следующих шагов</li>
+        </ul>
+        <a href="#contact" class="btn btn--outline">Записаться</a>
+      </article>
+
+      <!-- Распаковка + Карта -->
+      <article class="svc-card fade-in fade-in--delay-1">
+        <span class="label">Глубокая работа</span>
+        <div class="svc-card__price">€150</div>
+        <p class="svc-card__meta">Распаковка личности + Карта смыслов</p>
+        <h3>Распаковка + Карта смыслов</h3>
+        <p class="svc-card__desc">Создание фундамента личного бренда: понимание уникальности, тем для контента и визуальная карта смыслов.</p>
+        <ul class="svc-card__list">
+          <li>Понимание своей уникальности</li>
+          <li>Распаковка экспертности</li>
+          <li>Темы для контента</li>
+          <li>Сильные стороны и аудитория</li>
+          <li>Визуальная карта смыслов</li>
+        </ul>
+        <a href="#contact" class="btn btn--outline">Записаться</a>
+      </article>
+
+      <!-- Стратегическая сессия -->
+      <article class="svc-card svc-card--featured fade-in fade-in--delay-2">
+        <span class="label" style="color:var(--gold)">Стратегия</span>
+        <div class="svc-card__price">€150</div>
+        <p class="svc-card__meta">Стратегическая сессия + Визуальная карта</p>
+        <h3>Стратегическая сессия</h3>
+        <p class="svc-card__desc">Создание стратегии развития бренда. Клиент получает чёткий план, структуру продуктов и дорожную карту.</p>
+        <ul class="svc-card__list">
+          <li>Стратегия развития бренда</li>
+          <li>План действий</li>
+          <li>Структура продуктов</li>
+          <li>Контентная система</li>
+          <li>Визуальная дорожная карта</li>
+        </ul>
+        <a href="#contact" class="btn btn--gold">Записаться на сессию</a>
+      </article>
+
+      <!-- Экосистема - wide card -->
+      <article class="svc-card svc-card--ecosystem fade-in">
+        <div class="svc-card--ecosystem__left">
+          <h3>Индивидуальное сопровождение</h3>
+          <p class="title">Создание экосистемы личного бренда</p>
+          <p>От самопознания до полноценного бренда, контента, продуктов, AI-инструментов и собственного сайта. Глубокая работа под ключ, где каждый элемент выстроен под твою уникальность.</p>
+        </div>
+        <div class="svc-card--ecosystem__right">
+          <span class="price-label">Стоимость</span>
+          <span class="price-val">Индивидуально<br><small style="font-size:13px;opacity:.7">после диагностической сессии</small></span>
+          <a href="#contact" class="btn btn--gold">Обсудить проект</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ КЕЙСЫ ══════════ -->
+<section class="sec sec--white" id="reviews">
+  <div class="container">
+    <div class="sec__hd fade-in">
+      <span class="label">Кейсы клиентов</span>
+      <h2>Истории трансформации</h2>
+      <p>Реальные пути экспертов — от невидимости и хаоса знаний к сильному бренду, который работает без выгорания.</p>
+    </div>
+
+    <div class="cases-list">
+
+      <!-- КЕЙС 1: Психолог -->
+      <article class="case-item fade-in">
+        <div class="case-item__header">
+          <div class="case-item__meta">
+            <span class="case-tag">Психология</span>
+            <span class="case-service">Распаковка + Карта смыслов + Сайт</span>
+          </div>
+          <div class="case-item__result-pill">+4 клиента за первый месяц</div>
+        </div>
+
+        <div class="case-item__body">
+          <div class="case-item__left">
+            <h3>«Я знала, что помогаю людям. Но не могла объяснить — чем именно я отличаюсь от других психологов»</h3>
+            <div class="case-block case-block--before">
+              <p class="case-block__title">Было</p>
+              <p>Марина — клинический психолог с 8 годами практики. Глубокая, внимательная, с реальными результатами у клиентов. Но на вопрос «кто твой клиент и почему именно ты?» — терялась. Инстаграм вёлся хаотично: то умные посты про психологию, то молчание на три недели. Клиенты приходили по сарафану, но нестабильно. Сайта не было. Ценник занижала, боялась поднять.</p>
+              <ul class="case-facts">
+                <li>Нет чёткого позиционирования</li>
+                <li>Нет понимания своей уникальности</li>
+                <li>Хаотичный контент без системы</li>
+                <li>Запись только «по знакомым»</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-item__right">
+            <div class="case-block case-block--after">
+              <p class="case-block__title">Стало</p>
+              <p>На стратегической сессии обнаружили: Марина специализируется на тревожных расстройствах у женщин после 30 в периоды жизненных переходов — и в этом ей нет равных. Это стало основой бренда. Мы прописали карту смыслов, создали лендинг и контентную систему на 3 месяца.</p>
+              <ul class="case-facts case-facts--after">
+                <li>Чёткое позиционирование: «психолог для женщин в точках перемен»</li>
+                <li>Лендинг, который отвечает на вопрос «почему именно я» за 10 секунд</li>
+                <li>Контент-план с темами, которые притягивают её аудиторию</li>
+                <li>Через 3 недели после запуска — первые 4 органических клиента с сайта</li>
+              </ul>
+            </div>
+            <blockquote class="case-quote">
+              «Я впервые почувствовала, что мой бренд — это я. Не маска, не шаблон. Просто я — но видимая.»
+              <cite>— Марина К., клинический психолог</cite>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- КЕЙС 2: Энергопрактик -->
+      <article class="case-item case-item--dark fade-in">
+        <div class="case-item__header">
+          <div class="case-item__meta">
+            <span class="case-tag">Энергопрактика</span>
+            <span class="case-service">Диагностика + Стратегия + Контентная система</span>
+          </div>
+          <div class="case-item__result-pill">Первый онлайн-поток: 11 участников</div>
+        </div>
+
+        <div class="case-item__body">
+          <div class="case-item__left">
+            <h3>«Я работаю с энергией уже 6 лет, но мне стыдно было говорить об этом публично — боялась, что не поймут»</h3>
+            <div class="case-block case-block--before">
+              <p class="case-block__title">Было</p>
+              <p>Ольга — сертифицированный энергопрактик, работает с телесными блоками и родовыми программами. Клиенты на сессиях получали глубокие результаты. Но в соцсетях — тишина. Ольга боялась осуждения, не знала, как говорить о своей работе «нормальным языком» и при этом не предавать суть. Продукт существовал только в формате 1:1.</p>
+              <ul class="case-facts">
+                <li>Страх публичности и «непонимания»</li>
+                <li>Нет языка для описания своей работы</li>
+                <li>Только личные сессии, нет масштабируемого продукта</li>
+                <li>Весь трафик — устные рекомендации</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-item__right">
+            <div class="case-block case-block--after">
+              <p class="case-block__title">Стало</p>
+              <p>Вместе нашли язык: не «работа с родовыми программами», а «помогаю женщинам перестать повторять чужой сценарий и начать жить своей жизнью». Это попало точно в аудиторию. Разработали формат группового онлайн-интенсива, создали прогрев в Telegram и простую продающую страницу.</p>
+              <ul class="case-facts case-facts--after">
+                <li>Найден язык бренда — понятный и при этом глубокий</li>
+                <li>Создан групповой продукт — масштабируемый без выгорания</li>
+                <li>Прогрев в Telegram: 23 поста за 3 недели</li>
+                <li>Первый поток группы: 11 участников, €1 870 с нуля</li>
+              </ul>
+            </div>
+            <blockquote class="case-quote">
+              «Катрин помогла мне не "упаковать себя в коробку", а найти слова, которые МОИМИ устами говорят правду. Это другое ощущение.»
+              <cite>— Ольга Р., энергопрактик</cite>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- КЕЙС 3: Таролог -->
+      <article class="case-item fade-in">
+        <div class="case-item__header">
+          <div class="case-item__meta">
+            <span class="case-tag">Таролог</span>
+            <span class="case-service">Soul Method Workbook → Распаковка → Экосистема</span>
+          </div>
+          <div class="case-item__result-pill">Запись на 6 недель вперёд</div>
+        </div>
+
+        <div class="case-item__body">
+          <div class="case-item__left">
+            <h3>«Я делала расклады уже 7 лет. Клиенты обожали меня. Но я не понимала, почему меня не воспринимают как настоящего эксперта»</h3>
+            <div class="case-block case-block--before">
+              <p class="case-block__title">Было</p>
+              <p>Наталья — таролог с психологическим образованием. Её расклады — это глубокий анализ ситуации, а не предсказания. Но визуально и в контенте она выглядела «как все»: мистика, свечи, рунические шрифты. Аудитория не понимала разницы. Цена за консультацию — €25. Хотела поднять, но боялась потерять клиентов.</p>
+              <ul class="case-facts">
+                <li>Бренд сливался с тысячами похожих тарологов</li>
+                <li>Уникальная методология не была видна снаружи</li>
+                <li>Цена занижена, самооценка экспертности — тоже</li>
+                <li>Клиенты воспринимали как «гадалку», а не эксперта</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-item__right">
+            <div class="case-block case-block--after">
+              <p class="case-block__title">Стало</p>
+              <p>Переименовали формат: «Таро-анализ для принятия стратегических решений». Создали визуальную идентику в нейтральной editorial-эстетике. Прописали позиционирование: «Таролог для людей, которые думают, а не верят в предсказания». Это сразу отстроило её от конкурентов.</p>
+              <ul class="case-facts case-facts--after">
+                <li>Новое позиционирование попало в аудиторию «мыслящих» клиентов</li>
+                <li>Цена за сессию поднята с €25 до €75 — без потери клиентов</li>
+                <li>Запись расписана на 6 недель вперёд</li>
+                <li>Запустила первый цифровой продукт: гайд по самостоятельным раскладам за €19</li>
+              </ul>
+            </div>
+            <blockquote class="case-quote">
+              «Я всегда знала, что делаю что-то большее, чем просто "гадание". Наконец это видно и другим.»
+              <cite>— Наталья В., таролог-аналитик</cite>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- КЕЙС 4: Коуч -->
+      <article class="case-item case-item--dark fade-in">
+        <div class="case-item__header">
+          <div class="case-item__meta">
+            <span class="case-tag">Коучинг</span>
+            <span class="case-service">Стратсессия + Карта смыслов + Лендинг + AI-инструменты</span>
+          </div>
+          <div class="case-item__result-pill">Первый запуск: €4 200</div>
+        </div>
+
+        <div class="case-item__body">
+          <div class="case-item__left">
+            <h3>«Я прошла 4 курса по продвижению. Везде говорили разное. В итоге я делала всё — и ничего не работало»</h3>
+            <div class="case-block case-block--before">
+              <p class="case-block__title">Было</p>
+              <p>Анна — сертифицированный коуч ICF с корпоративным бэкграундом. 12 лет в управлении, 3 года в коучинге. Вела блог, снимала рилсы, запускала офферы — результат нулевой. Пробовала разные ниши: «коуч для всех» → «коуч для женщин» → «коуч для предпринимателей». Хаос в позиционировании привёл к выгоранию и ощущению, что «это не моё».</p>
+              <ul class="case-facts">
+                <li>«Синдром продвинутого новичка» — много знаний, ноль системы</li>
+                <li>3 смены ниши за год — потеря аудитории и уверенности</li>
+                <li>Усталость от контента без видимого результата</li>
+                <li>Желание всё бросить</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-item__right">
+            <div class="case-block case-block--after">
+              <p class="case-block__title">Стало</p>
+              <p>На сессии выяснили: её суперсила — помогать топ-менеджерам и HiPo-специалистам переходить из найма в собственный проект без потери дохода. Это был её личный путь — и именно это притягивало нужных людей. Создали лендинг, прописали 90-дневную программу и подключили AI-агента для ведения переписки с потенциальными клиентами.</p>
+              <ul class="case-facts case-facts--after">
+                <li>Чёткая ниша: «коуч для выхода из найма» — узнаваемость выросла мгновенно</li>
+                <li>Лендинг с воронкой: диагностика → программа</li>
+                <li>AI-агент взял на себя первичную переписку и квалификацию лидов</li>
+                <li>Первый запуск 90-дневной программы: 7 участников, €4 200</li>
+              </ul>
+            </div>
+            <blockquote class="case-quote">
+              «Один разговор с Катрин дал больше ясности, чем 4 курса по продвижению вместе взятые.»
+              <cite>— Анна Л., коуч ICF</cite>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+      <!-- КЕЙС 5: Астролог -->
+      <article class="case-item fade-in">
+        <div class="case-item__header">
+          <div class="case-item__meta">
+            <span class="case-tag">Астрология</span>
+            <span class="case-service">Диагностика → Бренд-система → Telegram + Сайт</span>
+          </div>
+          <div class="case-item__result-pill">Telegram: 0 → 1 840 подписчиков за 2 месяца</div>
+        </div>
+
+        <div class="case-item__body">
+          <div class="case-item__left">
+            <h3>«Я писала в пустоту 2 года. Качественный контент, глубокие разборы — и 80 подписчиков. Я думала, что астрология просто не продаётся онлайн»</h3>
+            <div class="case-block case-block--before">
+              <p class="case-block__title">Было</p>
+              <p>Виктория — астролог с системным образованием, совмещает западную и ведическую традиции. Писала длинные разборы планетарных транзитов, делала честный и глубокий контент. Но аудитория не росла. Причина — в отсутствии чёткого голоса и непонимании, кому именно она пишет. Монетизации не было вообще.</p>
+              <ul class="case-facts">
+                <li>Контент без адресата — не читается, не репостится</li>
+                <li>Нет продуктовой линейки — непонятно, «как купить»</li>
+                <li>Нет понимания своего уникального голоса в теме</li>
+                <li>2 года работы — 0 дохода с блога</li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-item__right">
+            <div class="case-block case-block--after">
+              <p class="case-block__title">Стало</p>
+              <p>Определили аудиторию: женщины 28–42, которые используют астрологию как инструмент самопознания и планирования — не как магию, а как систему. Прописали голос, создали контент-систему для Telegram, разработали линейку продуктов: от бесплатного лид-магнита до персонального разбора за €120.</p>
+              <ul class="case-facts case-facts--after">
+                <li>Telegram-канал вырос с 80 до 1 840 подписчиков за 8 недель</li>
+                <li>Запущен лид-магнит: «Твой астро-профиль за 5 минут» — 430 скачиваний</li>
+                <li>Первые продажи персональных разборов: 14 клиентов в первый месяц</li>
+                <li>Выручка первого месяца: €1 680 — с нуля</li>
+              </ul>
+            </div>
+            <blockquote class="case-quote">
+              «Я наконец поняла, что дело было не в качестве контента. Дело было в том, что я не понимала, для кого пишу. Теперь понимаю — и это всё изменило.»
+              <cite>— Виктория М., астролог</cite>
+            </blockquote>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ МИССИЯ ══════════ -->
+<section class="sec sec--navy">
+  <div class="container">
+    <div class="sec__hd fade-in">
+      <span class="label" style="color:var(--gold)">Моя миссия</span>
+      <h2>Помогаю экспертам раскрыть свою уникальность и масштабироваться через силу бренда и технологий.</h2>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px" class="fade-in">
+      <div style="text-align:center;padding:24px 16px">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
+          <path d="M20 34 C20 34 8 24 8 14a6 6 0 0 1 12 0c0 6-6 12-6 12"/><path d="M20 34s12-10 12-20a6 6 0 0 0-12 0"/>
+        </svg>
+        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Глубина и смыслы</p>
+        <p style="font-size:14px;opacity:.75;line-height:1.65">Карта смыслов, распаковка, цифровая психология — всё строится на ценностях конкретного человека</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
+          <path d="M20 6 L24 16 L34 16 L26 22 L29 32 L20 26 L11 32 L14 22 L6 16 L16 16 Z"/>
+        </svg>
+        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Эстетика и красота</p>
+        <p style="font-size:14px;opacity:.75;line-height:1.65">Премиальный визуал, гармония, editorial-стиль — бренд должен ощущаться, а не только читаться</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
+          <rect x="8" y="8" width="24" height="24" rx="4"/>
+          <text x="20" y="24" text-anchor="middle" fill="currentColor" stroke="none" font-size="10" font-family="Manrope,sans-serif" font-weight="700">AI</text>
+        </svg>
+        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Технологии и AI</p>
+        <p style="font-size:14px;opacity:.75;line-height:1.65">Команда ИИ-агентов забирает рутину — время остаётся для души, клиентов и стратегии</p>
+      </div>
+      <div style="text-align:center;padding:24px 16px">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
+          <polyline points="6,30 14,22 20,26 28,14 34,18"/>
+          <line x1="6" y1="34" x2="34" y2="34"/>
+        </svg>
+        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Рост и результат</p>
+        <p style="font-size:14px;opacity:.75;line-height:1.65">Конкретные шаги, запуски, цифры и видимость — не вечное «слушание без действия»</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="sec sec--beige" id="faq">
+  <div class="container">
+    <div class="sec__hd fade-in">
+      <span class="label">Вопросы и ответы</span>
+      <h2>Часто задаваемые вопросы</h2>
+    </div>
+
+    <div class="faq-list fade-in">
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Нужен ли мне сайт, если у меня нет личного бренда?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Сайт без личного бренда — это просто страница в интернете без смысла. Мы всегда начинаем с распаковки личности и стратегии, а уже потом создаём сайт, который становится живым отражением твоей уникальности. Но если у тебя уже есть понимание себя — мы можем начать с сайта как с отдельного проекта. Первый шаг — диагностическая сессия, которая покажет, с чего именно стоит начать тебе.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Чем Katie Agency отличается от маркетингового агентства?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Маркетинговые агентства работают с тем, что есть — упаковывают и продвигают. Мы идём глубже: сначала помогаем человеку понять себя, найти свои смыслы и уникальность через авторский метод SOUL, и только потом создаём маркетинг. Это не про «красивую картинку» — это про бренд, который невозможно скопировать, потому что он основан на настоящем человеке. Мы AI Media Agency нового поколения, где психология личности, стратегия и технологии работают как единая система.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Подойдёт ли мне этот подход, если я не люблю продавать?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Именно для тебя. Нелюбовь к продажам чаще всего возникает, когда человек предлагает что-то «не своё» — шаблон, который не совпадает с его ценностями. Когда бренд построен на настоящей уникальности, продажи становятся естественным продолжением общения. Ты просто делишься собой — и нужные люди приходят сами. Мы помогаем выстроить именно такую систему.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Сколько времени занимает работа?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Всё зависит от формата. Диагностическая сессия — 40–60 минут. Глубокая распаковка и карта смыслов — 60–90 минут плюс несколько дней на подготовку материалов. Индивидуальное сопровождение по созданию экосистемы бренда занимает от 1 до 3 месяцев в зависимости от объёма. Конкретные сроки и состав работ мы всегда обсуждаем индивидуально на стратегической или диагностической сессии.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Можно ли работать онлайн?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Да, мы работаем полностью онлайн. Все сессии проходят в Zoom или другом удобном формате видеосвязи. Все материалы, карты смыслов, стратегии и готовые продукты передаются в цифровом формате. Мы работаем с клиентами из любой страны мира — география не ограничивает.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ ФИНАЛЬНЫЙ БЛОК ══════════ -->
+<section class="final-cta" id="contact">
+  <div class="final-cta__deco"></div>
+  <span class="label fade-in">Начать</span>
+  <h2 class="fade-in fade-in--delay-1">
+    Твоя уникальность<br>не создаётся.<br>
+    <em>Она вспоминается.</em>
+  </h2>
+  <p class="fade-in fade-in--delay-2">Возможно, внутри тебя уже есть всё необходимое для реализации. Иногда нужен человек, который поможет это увидеть, собрать в систему и превратить в понятный путь.</p>
+  <div class="final-cta__btns fade-in fade-in--delay-3">
+    <a href="https://t.me/katrina_zhur6" class="btn btn--gold" target="_blank" rel="noopener">Записаться на диагностическую сессию</a>
+    <a href="https://t.me/katrina_zhur6" class="btn btn--outline-light" target="_blank" rel="noopener">Написать в Telegram →</a>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__top">
+      <a href="#" class="logo">
+        <span class="logo__top">Kati</span>
+        <span class="logo__bottom">Agency</span>
+      </a>
+      <p class="ftr__tagline">Соединяю душу эксперта и AI</p>
+      <div class="ftr__socials">
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://t.me/katrina_zhur6" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <p class="ftr__bottom">© 2026 Katie Agency · Катрин Журавлёва · AI Media Agency нового поколения для экспертов мягких ниш</p>
+  </div>
+</footer>
+
+<script>
+  /* ─ Бургер ─ */
+  const burger = document.getElementById('burger');
+  const nav    = document.getElementById('nav');
+  burger?.addEventListener('click', () => {
+    nav.classList.toggle('nav--open');
+    const spans = burger.querySelectorAll('span');
+    if(nav.classList.contains('nav--open')) {
+      spans[0].style.cssText = 'transform:rotate(45deg) translate(4px,4px)';
+      spans[1].style.cssText = 'opacity:0';
+      spans[2].style.cssText = 'transform:rotate(-45deg) translate(4px,-4px)';
+    } else {
+      spans.forEach(s => s.style.cssText = '');
+    }
+  });
+  nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('nav--open');
+    burger.querySelectorAll('span').forEach(s => s.style.cssText = '');
+  }));
+
+  /* ─ Header scroll shadow ─ */
+  const hdr = document.getElementById('hdr');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('hdr--scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* ─ FAQ ─ */
+  document.querySelectorAll('.faq-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    });
+  });
+
+  /* ─ Scroll fade-in ─ */
+  const obs = new IntersectionObserver(
+    entries => entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }),
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
