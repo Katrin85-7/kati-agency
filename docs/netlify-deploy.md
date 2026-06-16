@@ -43,7 +43,9 @@ git push origin main
 
 **Site configuration → Domain management → Options → Edit site name**
 
-Пример: `kati-agency` → **https://kati-agency.netlify.app**
+Пример: **`katrin-kati-agency`** → **https://katrin-kati-agency.netlify.app**
+
+> Не используй имя `kati-agency` — адрес `kati-agency.netlify.app` уже занят другим сайтом.
 
 ---
 
@@ -102,6 +104,72 @@ git push origin main
 | Формы | нет | Netlify Forms (если понадобится) |
 
 Оба хостинга могут работать параллельно. Для продакшена обычно выбирают один основной URL и настраивают редирект.
+
+---
+
+## Если деплой падает с ошибкой
+
+### «Deploy directory 'dist' / 'build' / 'public' does not exist»
+
+Netlify ищет папку сборки, которой у нас **нет** — сайт статический.
+
+**Site configuration → Build & deploy → Continuous deployment → Build settings:**
+
+| Поле | Правильно | Неправильно |
+|------|-----------|-------------|
+| **Base directory** | *(пусто)* | `kati-agency-site`, `src`… |
+| **Build command** | *(пусто)* или `echo Static site` | `npm run build` |
+| **Publish directory** | `.` | `dist`, `build`, `public` |
+
+Нажми **Save**, затем **Deploys → Trigger deploy → Clear cache and deploy site**.
+
+---
+
+### «Build script returned non-zero exit code»
+
+Чаще всего в Build command случайно стоит `npm run build`, а `package.json` в проекте нет.
+
+Очисти Build command (оставь пустым) или поставь: `echo Static site`
+
+---
+
+### Сайт открылся, но это НЕ твой лендинг
+
+URL **`https://kati-agency.netlify.app`** сейчас показывает **чужой старый сайт** (интернет-маркетинг), не репозиторий [Katrin85-7/kati-agency](https://github.com/Katrin85-7/kati-agency).
+
+**Что делать:**
+
+1. Зайди в [app.netlify.com](https://app.netlify.com) → свой сайт из списка (тот, что подключён к GitHub)
+2. **Domain management → Options → Change site name** → уникальное имя, например:
+   - `katrin-kati-agency`
+   - `kati-agency-landing`
+   - `kati-agency-2026`
+3. Твой URL будет: `https://ИМЯ-САЙТА.netlify.app`
+
+Проверка: на главной должны быть заголовок **«Создаём бренды, которые невозможно скопировать»** и кнопка **«Начать путь проявленности»**.
+
+---
+
+### «Page not found» после успешного деплоя
+
+- **Publish directory** должен быть `.` (корень репо, где лежит `index.html`)
+- **Base directory** — пустой
+- В Deploy file browser должны быть `index.html` и папка `assets/` в корне
+
+---
+
+### Netlify не видит репозиторий GitHub
+
+1. **User settings → Applications → GitHub** → дать Netlify доступ
+2. При импорте выбрать **Katrin85-7/kati-agency**, ветка **main**
+3. Если репо не в списке — **Configure Netlify on GitHub** для этого репо
+
+---
+
+### Быстрый запасной вариант (без Git)
+
+1. [app.netlify.com/drop](https://app.netlify.com/drop)
+2. Перетащи папку `kati-agency-site` целиком (внутри должны быть `index.html` + `assets/`)
 
 ---
 

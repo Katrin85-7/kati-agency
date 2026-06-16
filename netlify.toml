@@ -1,14 +1,14 @@
-# Kati Agency — статический лендинг (без сборки)
+# Kati Agency — статический HTML, сборка не нужна
 # https://docs.netlify.com/configure-builds/file-based-configuration/
 
 [build]
+  # Пустая команда в UI иногда ломает деплой — явный no-op для Linux-сборщика Netlify
+  command = "echo 'Static site: no build'"
   publish = "."
-  command = ""
 
-[build.environment]
-  NODE_VERSION = "20"
+# Если в UI Netlify указан Base directory — он должен быть ПУСТЫМ.
+# Publish directory = "." (точка), НЕ dist / build / public.
 
-# Безопасность
 [[headers]]
   for = "/*"
   [headers.values]
@@ -17,7 +17,6 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# HTML — всегда свежая версия после деплоя
 [[headers]]
   for = "/"
   [headers.values]
@@ -28,7 +27,6 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
-# Картинки и статика — долгий кэш
 [[headers]]
   for = "/assets/*"
   [headers.values]
