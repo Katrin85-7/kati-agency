@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -67,10 +67,21 @@
   h2 { font-family:var(--serif); font-size:clamp(30px,4vw,50px); font-weight:500; line-height:1.15; letter-spacing:-.01em; }
   h3 { font-family:var(--serif); font-size:clamp(20px,2.4vw,26px); font-weight:500; line-height:1.2; }
 
-  .sec { padding: 100px 0; }
-  .sec--beige  { background: var(--beige); }
-  .sec--navy   { background: var(--navy);  color: var(--cream); }
-  .sec--white  { background: var(--white); }
+  .sec {
+    padding: 100px 0;
+    position: relative;
+  }
+  .sec + .sec { margin-top: -1px; }
+  .sec--beige  {
+    background: linear-gradient(180deg, rgba(250,247,242,.78) 0%, var(--beige) 90px, var(--beige) calc(100% - 90px), rgba(250,247,242,.72) 100%);
+  }
+  .sec--navy   {
+    background: linear-gradient(180deg, var(--navy-dk) 0%, var(--navy) 96px, var(--navy) calc(100% - 96px), var(--navy-dk) 100%);
+    color: var(--cream);
+  }
+  .sec--white  {
+    background: linear-gradient(180deg, rgba(250,247,242,.82) 0%, var(--white) 90px, var(--white) calc(100% - 90px), rgba(250,247,242,.72) 100%);
+  }
 
   .sec__hd {
     text-align: center;
@@ -88,6 +99,12 @@
 
   /* ─── Кнопки ─── */
   .btn {
+    --shine-x: 130%;
+    --shine-border: rgba(255,255,255,.34);
+    --shine-line: rgba(255,255,255,.74);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     font-family: var(--sans);
     font-size: 11px;
     font-weight: 700;
@@ -103,14 +120,203 @@
     gap: 10px;
     transition: transform .2s, box-shadow .2s, background .2s, opacity .2s;
   }
-  .btn--gold  { background:var(--gold); color:#fff; }
-  .btn--gold:hover { background:var(--gold-dk); transform:translateY(-2px); box-shadow:0 8px 28px rgba(200,162,122,.4); }
-  .btn--navy  { background:var(--navy); color:#fff; }
-  .btn--navy:hover { background:var(--navy-dk); transform:translateY(-2px); }
-  .btn--outline { background:transparent; border:1.5px solid var(--gold); color:var(--gold); }
-  .btn--outline:hover { background:rgba(200,162,122,.1); }
-  .btn--outline-light { background:transparent; border:1.5px solid rgba(250,247,242,.5); color:var(--cream); }
-  .btn--outline-light:hover { border-color:var(--cream); background:rgba(250,247,242,.1); }
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(
+      110deg,
+      transparent 0%,
+      transparent 32%,
+      var(--shine-border) 44%,
+      var(--shine-line) 50%,
+      var(--shine-border) 56%,
+      transparent 68%,
+      transparent 100%
+    );
+    transform: translateX(var(--shine-x)) skewX(-18deg);
+    animation: btn-shine 3.6s cubic-bezier(.22, 1, .36, 1) infinite;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    border: 1px solid rgba(255,255,255,.16);
+    pointer-events: none;
+  }
+  .btn:hover {
+    transform: translateY(-2px) scale(1.02);
+  }
+  .btn:active {
+    transform: translateY(0) scale(.98);
+  }
+  @keyframes btn-shine {
+    0%   { transform: translateX(130%) skewX(-18deg); opacity: 0; }
+    14%  { opacity: 1; }
+    42%  { transform: translateX(-130%) skewX(-18deg); opacity: 1; }
+    60%, 100% { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  }
+  .btn--gold,
+  .btn--navy,
+  .btn--outline {
+    --shine-border: rgba(250,247,242,.32);
+    --shine-line: rgba(255,255,255,.9);
+    background: linear-gradient(135deg, #f0dfbf 0%, var(--gold) 58%, var(--gold-dk) 100%);
+    border: 1.5px solid rgba(200,162,122,.55);
+    color: var(--navy-dk);
+    box-shadow: 0 10px 26px rgba(200,162,122,.24);
+  }
+  .btn--gold:hover,
+  .btn--navy:hover,
+  .btn--outline:hover { box-shadow:0 12px 34px rgba(200,162,122,.46); }
+  .btn--outline-light {
+    --shine-border: rgba(250,247,242,.2);
+    --shine-line: rgba(250,247,242,.82);
+    background:rgba(250,247,242,.08);
+    border:1.5px solid rgba(250,247,242,.5);
+    color:var(--cream);
+    backdrop-filter: blur(12px);
+  }
+  .btn--outline-light:hover { border-color:var(--cream); background:rgba(250,247,242,.12); box-shadow:0 10px 28px rgba(250,247,242,.12); }
+  @media (prefers-reduced-motion: reduce) {
+    .btn::before { animation: none; opacity: 0; }
+  }
+
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @property --gradient-angle-offset {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+  }
+  @property --gradient-percent {
+    syntax: "<percentage>";
+    initial-value: 5%;
+    inherits: false;
+  }
+  @property --gradient-shine {
+    syntax: "<color>";
+    initial-value: white;
+    inherits: false;
+  }
+
+  .shiny-cta {
+    --shiny-cta-bg: #d8b98a;
+    --shiny-cta-bg-subtle: #a8845e;
+    --shiny-cta-fg: var(--navy-dk);
+    --shiny-cta-highlight: #f7ead0;
+    --shiny-cta-highlight-subtle: #ffffff;
+    --gradient-angle: 0deg;
+    --gradient-angle-offset: 0deg;
+    --gradient-percent: 5%;
+    --gradient-shine: #ffffff;
+    isolation: isolate;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    outline-offset: 4px;
+    padding: 18px 36px;
+    font-family: var(--sans);
+    font-size: 11px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--shiny-cta-fg);
+    background:
+      linear-gradient(var(--shiny-cta-bg), var(--shiny-cta-bg)) padding-box,
+      conic-gradient(
+        from calc(var(--gradient-angle) - var(--gradient-angle-offset)),
+        transparent,
+        var(--shiny-cta-highlight) var(--gradient-percent),
+        var(--gradient-shine) calc(var(--gradient-percent) * 2),
+        var(--shiny-cta-highlight) calc(var(--gradient-percent) * 3),
+        transparent calc(var(--gradient-percent) * 4)
+      ) border-box;
+    box-shadow: inset 0 0 0 1px rgba(250,247,242,.16), 0 14px 36px rgba(200,162,122,.32);
+    animation: gradient-angle 3s linear infinite;
+    transition: --gradient-angle-offset .8s cubic-bezier(.25,1,.5,1), --gradient-percent .8s cubic-bezier(.25,1,.5,1), --gradient-shine .8s cubic-bezier(.25,1,.5,1), transform .25s ease, box-shadow .25s ease;
+  }
+  .shiny-cta::before,
+  .shiny-cta::after,
+  .shiny-cta span::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+  }
+  .shiny-cta::before {
+    --position: 2px;
+    --space: calc(var(--position) * 2);
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    background: radial-gradient(circle at var(--position) var(--position), rgba(250,247,242,.9) calc(var(--position) / 4), transparent 0) padding-box;
+    background-size: var(--space) var(--space);
+    background-repeat: space;
+    mask-image: conic-gradient(from calc(var(--gradient-angle) + 45deg), black, transparent 10% 90%, black);
+    border-radius: inherit;
+    opacity: .28;
+  }
+  .shiny-cta::after {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(-50deg, transparent, rgba(200,162,122,.72), transparent);
+    mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+    opacity: .45;
+    animation: shimmer 7.5s linear infinite;
+  }
+  .shiny-cta span {
+    position: relative;
+    z-index: 1;
+  }
+  .shiny-cta span::before {
+    width: calc(100% + 1rem);
+    height: calc(100% + 1rem);
+    box-shadow: inset 0 -1ex 2rem 4px rgba(200,162,122,.65);
+    opacity: 0;
+    transition: opacity .8s cubic-bezier(.25,1,.5,1);
+    animation: breathe 4.5s linear infinite;
+  }
+  .shiny-cta:hover,
+  .shiny-cta:focus-visible {
+    --gradient-percent: 20%;
+    --gradient-angle-offset: 95deg;
+    --gradient-shine: #e8c98a;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: inset 0 0 0 1px rgba(250,247,242,.2), 0 18px 44px rgba(200,162,122,.42), 0 0 42px rgba(200,162,122,.38);
+  }
+  .shiny-cta:hover span::before,
+  .shiny-cta:focus-visible span::before { opacity: 1; }
+  .shiny-cta:active { transform: translateY(1px) scale(.99); }
+
+  @keyframes gradient-angle { to { --gradient-angle: 360deg; } }
+  @keyframes shimmer { to { rotate: 360deg; } }
+  @keyframes breathe {
+    from, to { scale: 1; }
+    50% { scale: 1.18; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .shiny-cta,
+    .shiny-cta::after,
+    .shiny-cta span::before { animation: none; }
+  }
 
   .arrow-link {
     font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
@@ -819,21 +1025,12 @@
   }
   .soul-closing .btn { position: relative; z-index: 2; }
   .btn--soul-cta {
+    --shine-border: rgba(250,247,242,.3);
+    --shine-line: rgba(255,255,255,.9);
     background: linear-gradient(135deg, #e8c98a 0%, var(--gold) 55%, var(--gold-dk) 100%);
     color: var(--navy-dk);
-    font-family: var(--sans);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    text-decoration: none;
     padding: 18px 44px;
-    border-radius: var(--r);
-    border: none;
-    cursor: pointer;
-    display: inline-block;
     box-shadow: 0 0 48px rgba(200,162,122,.55), 0 8px 28px rgba(168,132,94,.35);
-    transition: transform .3s ease, box-shadow .3s ease;
   }
   .btn--soul-cta:hover {
     transform: translateY(-3px) scale(1.04);
@@ -1193,7 +1390,16 @@
   }
 
   /* ─── FAQ ─── */
-  .faq-list { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:2px; }
+  .faq-list {
+    max-width: 1120px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(5, auto);
+    grid-auto-flow: column;
+    gap: 12px;
+    align-items: start;
+  }
   .faq-item {
     border-radius:var(--r);
     overflow:hidden;
@@ -1226,12 +1432,19 @@
   }
   .faq-body p { padding-bottom:24px; }
   .faq-item.open .faq-body { max-height:400px; }
+  @media (max-width:760px) {
+    .faq-list {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
+    }
+  }
 
   /* ─── Финальный блок ─── */
   .final-cta {
     text-align:center;
     padding:120px 40px;
-    background:linear-gradient(160deg,var(--navy-dk) 0%,var(--navy) 100%);
+    background:linear-gradient(180deg, var(--beige) 0%, var(--navy-dk) 90px, var(--navy) 100%);
     color:var(--cream);
     position:relative;
     overflow:hidden;
@@ -1280,149 +1493,228 @@
     border-top:1px solid rgba(200,162,122,.12); padding-top:24px;
   }
 
-  /* ─── Кейсы ─── */
-  .cases-list {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .case-item {
-    background: var(--white);
-    border-radius: var(--r-lg);
-    border: 1px solid rgba(200,162,122,.18);
-    overflow: hidden;
-    transition: box-shadow .3s;
-  }
-  .case-item:hover { box-shadow: var(--sh-lg); }
-  .case-item--dark { background: var(--navy); color: var(--cream); border-color:var(--navy); }
-
-  .case-item__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 40px;
-    border-bottom: 1px solid rgba(200,162,122,.15);
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .case-item--dark .case-item__header { border-bottom-color: rgba(250,247,242,.1); }
-
-  .case-item__meta { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-
-  .case-tag {
-    font-size: 10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
-    background:var(--gold); color:#fff;
-    padding:5px 12px; border-radius:var(--r);
-  }
-  .case-service {
-    font-size:12px; font-weight:600; letter-spacing:.04em;
-    color:var(--muted);
-  }
-  .case-item--dark .case-service { color:rgba(250,247,242,.55); }
-
-  .case-item__result-pill {
-    font-size:12px; font-weight:700; letter-spacing:.04em;
-    color:var(--gold-dk); background:rgba(200,162,122,.12);
-    padding:7px 16px; border-radius:var(--r);
-    white-space:nowrap;
-  }
-  .case-item--dark .case-item__result-pill { background:rgba(200,162,122,.2); color:var(--gold); }
-
-  .case-item__body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  .case-item__left {
-    padding: 40px;
-    border-right: 1px solid rgba(200,162,122,.12);
-  }
-  .case-item--dark .case-item__left { border-right-color:rgba(250,247,242,.08); }
-
-  .case-item__right { padding: 40px; }
-
-  .case-item__left h3 {
-    font-family: var(--serif);
-    font-size: clamp(17px,1.8vw,20px);
-    font-weight: 500;
-    font-style: italic;
-    line-height: 1.45;
-    margin-bottom: 28px;
-    color: var(--navy);
-  }
-  .case-item--dark .case-item__left h3 { color:var(--cream); }
-
-  .case-block {
-    border-radius: var(--r);
-    padding: 24px 28px;
-  }
-  .case-block--before {
-    background: rgba(200,162,122,.08);
-    border-left: 3px solid rgba(200,162,122,.4);
-  }
-  .case-item--dark .case-block--before { background:rgba(250,247,242,.05); border-left-color:rgba(250,247,242,.2); }
-
-  .case-block--after {
-    background: rgba(47,79,99,.05);
-    border-left: 3px solid var(--navy);
-    margin-bottom: 24px;
-  }
-  .case-item--dark .case-block--after { background:rgba(250,247,242,.07); border-left-color:var(--gold); }
-
-  .case-block__title {
-    font-size:10px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--gold); margin-bottom:12px;
-  }
-  .case-block p {
-    font-size:14px; color:var(--muted); line-height:1.75; margin-bottom:16px;
-  }
-  .case-item--dark .case-block p { color:rgba(250,247,242,.72); }
-
-  .case-facts {
-    list-style: none;
-    font-size: 13px;
-    color: var(--muted);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 0;
-  }
-  .case-item--dark .case-facts { color:rgba(250,247,242,.65); }
-
-  .case-facts li { padding-left:18px; position:relative; line-height:1.5; }
-  .case-facts li::before { content:'—'; position:absolute; left:0; color:var(--gold); font-size:12px; }
-
-  .case-facts--after li::before { content:'✓'; color:#4a9b6f; font-weight:700; }
-  .case-item--dark .case-facts--after li::before { color:#6dba8a; }
-
-  .case-quote {
+  /* ─── Instagram toast ─── */
+  .ig-toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(140%);
+    max-width: min(420px, calc(100% - 32px));
+    padding: 14px 22px;
+    border-radius: 999px;
     background: var(--navy);
     color: var(--cream);
-    padding: 24px 28px;
-    border-radius: var(--r);
-    font-family: var(--serif);
-    font-size: 16px;
-    font-style: italic;
-    line-height: 1.55;
-    position: relative;
+    font-size: 13px;
+    line-height: 1.45;
+    text-align: center;
+    box-shadow: var(--sh-lg);
+    z-index: 9999;
+    pointer-events: none;
+    transition: transform .45s cubic-bezier(.22,1,.36,1), opacity .35s;
+    opacity: 0;
   }
-  .case-item--dark .case-quote { background:rgba(250,247,242,.08); }
-  .case-quote cite {
-    display:block; margin-top:14px;
-    font-style:normal; font-size:11px; font-weight:700;
-    letter-spacing:.1em; text-transform:uppercase;
-    color:var(--gold); font-family:var(--sans);
+  .ig-toast.is-visible {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* ─── Кейсы / интерактивная карточка ─── */
+  .case-showcase {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid rgba(200,162,122,.18);
+    border-radius: var(--r-lg);
+    padding: 44px;
+    box-shadow: var(--sh);
+    overflow: hidden;
+  }
+  .case-showcase__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+  .case-avatars {
+    display: flex;
+    gap: 8px;
+  }
+  .case-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--cream);
+    background: var(--beige);
+    opacity: .45;
+    cursor: pointer;
+    transition: opacity .25s, transform .25s, box-shadow .25s;
+  }
+  .case-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .case-avatar.active {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 0 0 1px var(--gold), 0 8px 20px rgba(200,162,122,.24);
+  }
+  .case-index {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-family: var(--serif);
+  }
+  .case-index__current {
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+  .case-index__total {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .case-showcase__grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 52px;
+    align-items: center;
+  }
+  .case-photo-wrap {
+    position: relative;
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+  }
+  .case-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px solid rgba(200,162,122,.32);
+  }
+  .case-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    filter: saturate(.9);
+    box-shadow: 0 20px 48px rgba(47,79,99,.18);
+    transition: opacity .25s ease, transform .35s cubic-bezier(.22,1,.36,1);
+  }
+  .case-photo.is-switching {
+    opacity: 0;
+    transform: translateX(18px) scale(.96);
+  }
+  .case-card__meta {
+    margin-bottom: 20px;
+  }
+  .case-card__name {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .case-card__role {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .case-card__quote {
+    font-family: var(--serif);
+    font-size: clamp(19px, 2.1vw, 26px);
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--ink);
+    margin-bottom: 28px;
+    min-height: 108px;
+  }
+  .case-card__quote span {
+    display: inline-block;
+    margin-right: .25em;
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+    animation: case-word .45s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes case-word {
+    to { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+  .case-panel {
+    background: rgba(200,162,122,.08);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--r);
+    padding: 22px 24px;
+  }
+  .case-panel__label {
+    display: block;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold-dk);
+    margin-bottom: 10px;
+  }
+  .case-panel p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .case-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .case-arrow,
+  .case-phase {
+    border: 1px solid rgba(200,162,122,.32);
+    background: var(--white);
+    color: var(--navy);
+    cursor: pointer;
+    transition: background .25s, color .25s, transform .25s, border-color .25s;
+  }
+  .case-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+  .case-arrow:hover,
+  .case-phase:hover,
+  .case-phase.active {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+    transform: translateY(-2px);
+  }
+  .case-phase {
+    padding: 12px 20px;
+    border-radius: var(--r);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+  }
+  .case-progress {
+    height: 1px;
+    background: rgba(200,162,122,.2);
+    margin-top: 40px;
+    overflow: hidden;
+  }
+  .case-progress__bar {
+    height: 100%;
+    width: 25%;
+    background: var(--gold);
+    transition: width .35s ease;
   }
 
   @media (max-width:900px) {
-    .case-item__body { grid-template-columns:1fr; }
-    .case-item__left { border-right:none; border-bottom:1px solid rgba(200,162,122,.12); }
-    .case-item--dark .case-item__left { border-bottom-color:rgba(250,247,242,.08); }
-    .case-item__header { padding:20px 24px; }
-    .case-item__left,
-    .case-item__right { padding:28px 24px; }
+    .case-showcase { padding: 32px 24px; }
+    .case-showcase__grid { grid-template-columns: 1fr; gap: 32px; }
+    .case-photo-wrap { width: min(240px, 68vw); height: min(240px, 68vw); }
   }
 
   /* ─── Анимация появления ─── */
@@ -1511,7 +1803,7 @@
         <li><a href="#reviews">Отзывы</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
-      <a href="#contact" class="btn btn--gold nav__cta">Начать путь</a>
+      <a href="#services" class="btn btn--gold nav__cta">Начать путь</a>
     </nav>
     <button class="burger" id="burger" aria-label="Меню">
       <span></span><span></span><span></span>
@@ -1534,7 +1826,7 @@
       <h1 class="fade-in fade-in--delay-1">Создаём бренды, которые невозможно скопировать.</h1>
       <p class="hero__lead fade-in fade-in--delay-2">Kati Agency — место, где стратегия, психология личности, искусственный интеллект, визуальная эстетика и современные технологии объединяются в единую систему. Мы помогаем коучам, психологам, наставникам, консультантам и экспертам мягких ниш находить собственный голос и превращать его в бренд, который отражает человека и привлекает нужных клиентов.</p>
       <div class="hero__actions fade-in fade-in--delay-3">
-        <a href="#contact" class="btn btn--gold">Начать путь проявленности</a>
+        <a href="#services" class="btn btn--gold">Начать путь проявленности</a>
         <a href="#soul" class="arrow-link">SOUL Method <span>→</span></a>
       </div>
     </div>
@@ -1790,7 +2082,7 @@
         <h3>Soul Method Workbook</h3>
         <div class="ecosystem-promo__price">€15</div>
         <p>41 страница глубокой распаковки личности с 7 AI-помощниками. Самостоятельная работа по авторскому методу SOUL.</p>
-        <a href="#contact" class="btn btn--gold">Получить воркбук</a>
+        <a href="https://ig.me/m/katrina.zhur" class="btn btn--gold js-copy-message" target="_blank" rel="noopener" data-copy-message="Получить воркбук">Получить воркбук</a>
       </div>
     </div>
 
@@ -1808,7 +2100,7 @@
           <li>Сильные стороны и точки роста</li>
           <li>Конкретный план следующих шагов</li>
         </ul>
-        <a href="#contact" class="btn btn--outline">Записаться</a>
+        <a href="https://ig.me/m/katrina.zhur" class="btn btn--outline js-copy-message" target="_blank" rel="noopener" data-copy-message="Прошу записать меня на диагностическую сессию">Записаться</a>
       </article>
 
       <!-- Распаковка + Карта -->
@@ -1825,7 +2117,7 @@
           <li>Сильные стороны и аудитория</li>
           <li>Визуальная карта смыслов</li>
         </ul>
-        <a href="#contact" class="btn btn--outline">Записаться</a>
+        <a href="https://ig.me/m/katrina.zhur" class="btn btn--outline js-copy-message" target="_blank" rel="noopener" data-copy-message="Прошу записать меня на распаковку личности">Записаться</a>
       </article>
 
       <!-- Стратегическая сессия -->
@@ -1842,7 +2134,7 @@
           <li>Контентная система</li>
           <li>Визуальная дорожная карта</li>
         </ul>
-        <a href="#contact" class="btn btn--gold">Записаться на сессию</a>
+        <a href="https://ig.me/m/katrina.zhur" class="btn btn--gold js-copy-message" target="_blank" rel="noopener" data-copy-message="Прошу записать меня на стратегическую сессию">Записаться на сессию</a>
       </article>
 
       <!-- Экосистема - wide card -->
@@ -1855,7 +2147,7 @@
         <div class="svc-card--ecosystem__right">
           <span class="price-label">Стоимость</span>
           <span class="price-val">Индивидуально<br><small style="font-size:13px;opacity:.7">после диагностической сессии</small></span>
-          <a href="#contact" class="btn btn--gold">Обсудить проект</a>
+          <a href="https://ig.me/m/katrina.zhur" class="btn btn--gold js-copy-message" target="_blank" rel="noopener" data-copy-message="Хочу обсудить проект">Обсудить проект</a>
         </div>
       </article>
     </div>
@@ -1866,272 +2158,52 @@
 <section class="sec sec--white" id="reviews">
   <div class="container">
     <div class="sec__hd fade-in">
-      <span class="label">Кейсы клиентов</span>
-      <h2>Истории трансформации</h2>
-      <p>Реальные пути экспертов — от невидимости и хаоса знаний к сильному бренду, который работает без выгорания.</p>
+      <span class="label">Отзывы и кейсы</span>
+      <h2>Трансформации клиентов</h2>
+      <p>Реальные пути экспертов от невидимости и хаоса знаний к сильному бренду.</p>
     </div>
 
-    <div class="cases-list">
-
-      <!-- КЕЙС 1: Психолог -->
-      <article class="case-item fade-in">
-        <div class="case-item__header">
-          <div class="case-item__meta">
-            <span class="case-tag">Психология</span>
-            <span class="case-service">Распаковка + Карта смыслов + Сайт</span>
-          </div>
-          <div class="case-item__result-pill">+4 клиента за первый месяц</div>
+    <div class="case-showcase fade-in" id="caseShowcase">
+      <div class="case-showcase__top">
+        <div class="case-avatars" id="caseAvatars" aria-label="Выбрать историю клиента"></div>
+        <div class="case-index" aria-live="polite">
+          <span class="case-index__current" id="caseIndex">01</span>
+          <span class="case-index__total">/ 04</span>
         </div>
-
-        <div class="case-item__body">
-          <div class="case-item__left">
-            <h3>«Я знала, что помогаю людям. Но не могла объяснить — чем именно я отличаюсь от других психологов»</h3>
-            <div class="case-block case-block--before">
-              <p class="case-block__title">Было</p>
-              <p>Марина — клинический психолог с 8 годами практики. Глубокая, внимательная, с реальными результатами у клиентов. Но на вопрос «кто твой клиент и почему именно ты?» — терялась. Инстаграм вёлся хаотично: то умные посты про психологию, то молчание на три недели. Клиенты приходили по сарафану, но нестабильно. Сайта не было. Ценник занижала, боялась поднять.</p>
-              <ul class="case-facts">
-                <li>Нет чёткого позиционирования</li>
-                <li>Нет понимания своей уникальности</li>
-                <li>Хаотичный контент без системы</li>
-                <li>Запись только «по знакомым»</li>
-              </ul>
-            </div>
-          </div>
-          <div class="case-item__right">
-            <div class="case-block case-block--after">
-              <p class="case-block__title">Стало</p>
-              <p>На стратегической сессии обнаружили: Марина специализируется на тревожных расстройствах у женщин после 30 в периоды жизненных переходов — и в этом ей нет равных. Это стало основой бренда. Мы прописали карту смыслов, создали лендинг и контентную систему на 3 месяца.</p>
-              <ul class="case-facts case-facts--after">
-                <li>Чёткое позиционирование: «психолог для женщин в точках перемен»</li>
-                <li>Лендинг, который отвечает на вопрос «почему именно я» за 10 секунд</li>
-                <li>Контент-план с темами, которые притягивают её аудиторию</li>
-                <li>Через 3 недели после запуска — первые 4 органических клиента с сайта</li>
-              </ul>
-            </div>
-            <blockquote class="case-quote">
-              «Я впервые почувствовала, что мой бренд — это я. Не маска, не шаблон. Просто я — но видимая.»
-              <cite>— Марина К., клинический психолог</cite>
-            </blockquote>
-          </div>
-        </div>
-      </article>
-
-      <!-- КЕЙС 2: Энергопрактик -->
-      <article class="case-item case-item--dark fade-in">
-        <div class="case-item__header">
-          <div class="case-item__meta">
-            <span class="case-tag">Энергопрактика</span>
-            <span class="case-service">Диагностика + Стратегия + Контентная система</span>
-          </div>
-          <div class="case-item__result-pill">Первый онлайн-поток: 11 участников</div>
-        </div>
-
-        <div class="case-item__body">
-          <div class="case-item__left">
-            <h3>«Я работаю с энергией уже 6 лет, но мне стыдно было говорить об этом публично — боялась, что не поймут»</h3>
-            <div class="case-block case-block--before">
-              <p class="case-block__title">Было</p>
-              <p>Ольга — сертифицированный энергопрактик, работает с телесными блоками и родовыми программами. Клиенты на сессиях получали глубокие результаты. Но в соцсетях — тишина. Ольга боялась осуждения, не знала, как говорить о своей работе «нормальным языком» и при этом не предавать суть. Продукт существовал только в формате 1:1.</p>
-              <ul class="case-facts">
-                <li>Страх публичности и «непонимания»</li>
-                <li>Нет языка для описания своей работы</li>
-                <li>Только личные сессии, нет масштабируемого продукта</li>
-                <li>Весь трафик — устные рекомендации</li>
-              </ul>
-            </div>
-          </div>
-          <div class="case-item__right">
-            <div class="case-block case-block--after">
-              <p class="case-block__title">Стало</p>
-              <p>Вместе нашли язык: не «работа с родовыми программами», а «помогаю женщинам перестать повторять чужой сценарий и начать жить своей жизнью». Это попало точно в аудиторию. Разработали формат группового онлайн-интенсива, создали прогрев в Telegram и простую продающую страницу.</p>
-              <ul class="case-facts case-facts--after">
-                <li>Найден язык бренда — понятный и при этом глубокий</li>
-                <li>Создан групповой продукт — масштабируемый без выгорания</li>
-                <li>Прогрев в Telegram: 23 поста за 3 недели</li>
-                <li>Первый поток группы: 11 участников, €1 870 с нуля</li>
-              </ul>
-            </div>
-            <blockquote class="case-quote">
-              «Катрин помогла мне не "упаковать себя в коробку", а найти слова, которые МОИМИ устами говорят правду. Это другое ощущение.»
-              <cite>— Ольга Р., энергопрактик</cite>
-            </blockquote>
-          </div>
-        </div>
-      </article>
-
-      <!-- КЕЙС 3: Таролог -->
-      <article class="case-item fade-in">
-        <div class="case-item__header">
-          <div class="case-item__meta">
-            <span class="case-tag">Таролог</span>
-            <span class="case-service">Soul Method Workbook → Распаковка → Экосистема</span>
-          </div>
-          <div class="case-item__result-pill">Запись на 6 недель вперёд</div>
-        </div>
-
-        <div class="case-item__body">
-          <div class="case-item__left">
-            <h3>«Я делала расклады уже 7 лет. Клиенты обожали меня. Но я не понимала, почему меня не воспринимают как настоящего эксперта»</h3>
-            <div class="case-block case-block--before">
-              <p class="case-block__title">Было</p>
-              <p>Наталья — таролог с психологическим образованием. Её расклады — это глубокий анализ ситуации, а не предсказания. Но визуально и в контенте она выглядела «как все»: мистика, свечи, рунические шрифты. Аудитория не понимала разницы. Цена за консультацию — €25. Хотела поднять, но боялась потерять клиентов.</p>
-              <ul class="case-facts">
-                <li>Бренд сливался с тысячами похожих тарологов</li>
-                <li>Уникальная методология не была видна снаружи</li>
-                <li>Цена занижена, самооценка экспертности — тоже</li>
-                <li>Клиенты воспринимали как «гадалку», а не эксперта</li>
-              </ul>
-            </div>
-          </div>
-          <div class="case-item__right">
-            <div class="case-block case-block--after">
-              <p class="case-block__title">Стало</p>
-              <p>Переименовали формат: «Таро-анализ для принятия стратегических решений». Создали визуальную идентику в нейтральной editorial-эстетике. Прописали позиционирование: «Таролог для людей, которые думают, а не верят в предсказания». Это сразу отстроило её от конкурентов.</p>
-              <ul class="case-facts case-facts--after">
-                <li>Новое позиционирование попало в аудиторию «мыслящих» клиентов</li>
-                <li>Цена за сессию поднята с €25 до €75 — без потери клиентов</li>
-                <li>Запись расписана на 6 недель вперёд</li>
-                <li>Запустила первый цифровой продукт: гайд по самостоятельным раскладам за €19</li>
-              </ul>
-            </div>
-            <blockquote class="case-quote">
-              «Я всегда знала, что делаю что-то большее, чем просто "гадание". Наконец это видно и другим.»
-              <cite>— Наталья В., таролог-аналитик</cite>
-            </blockquote>
-          </div>
-        </div>
-      </article>
-
-      <!-- КЕЙС 4: Коуч -->
-      <article class="case-item case-item--dark fade-in">
-        <div class="case-item__header">
-          <div class="case-item__meta">
-            <span class="case-tag">Коучинг</span>
-            <span class="case-service">Стратсессия + Карта смыслов + Лендинг + AI-инструменты</span>
-          </div>
-          <div class="case-item__result-pill">Первый запуск: €4 200</div>
-        </div>
-
-        <div class="case-item__body">
-          <div class="case-item__left">
-            <h3>«Я прошла 4 курса по продвижению. Везде говорили разное. В итоге я делала всё — и ничего не работало»</h3>
-            <div class="case-block case-block--before">
-              <p class="case-block__title">Было</p>
-              <p>Анна — сертифицированный коуч ICF с корпоративным бэкграундом. 12 лет в управлении, 3 года в коучинге. Вела блог, снимала рилсы, запускала офферы — результат нулевой. Пробовала разные ниши: «коуч для всех» → «коуч для женщин» → «коуч для предпринимателей». Хаос в позиционировании привёл к выгоранию и ощущению, что «это не моё».</p>
-              <ul class="case-facts">
-                <li>«Синдром продвинутого новичка» — много знаний, ноль системы</li>
-                <li>3 смены ниши за год — потеря аудитории и уверенности</li>
-                <li>Усталость от контента без видимого результата</li>
-                <li>Желание всё бросить</li>
-              </ul>
-            </div>
-          </div>
-          <div class="case-item__right">
-            <div class="case-block case-block--after">
-              <p class="case-block__title">Стало</p>
-              <p>На сессии выяснили: её суперсила — помогать топ-менеджерам и HiPo-специалистам переходить из найма в собственный проект без потери дохода. Это был её личный путь — и именно это притягивало нужных людей. Создали лендинг, прописали 90-дневную программу и подключили AI-агента для ведения переписки с потенциальными клиентами.</p>
-              <ul class="case-facts case-facts--after">
-                <li>Чёткая ниша: «коуч для выхода из найма» — узнаваемость выросла мгновенно</li>
-                <li>Лендинг с воронкой: диагностика → программа</li>
-                <li>AI-агент взял на себя первичную переписку и квалификацию лидов</li>
-                <li>Первый запуск 90-дневной программы: 7 участников, €4 200</li>
-              </ul>
-            </div>
-            <blockquote class="case-quote">
-              «Один разговор с Катрин дал больше ясности, чем 4 курса по продвижению вместе взятые.»
-              <cite>— Анна Л., коуч ICF</cite>
-            </blockquote>
-          </div>
-        </div>
-      </article>
-
-      <!-- КЕЙС 5: Астролог -->
-      <article class="case-item fade-in">
-        <div class="case-item__header">
-          <div class="case-item__meta">
-            <span class="case-tag">Астрология</span>
-            <span class="case-service">Диагностика → Бренд-система → Telegram + Сайт</span>
-          </div>
-          <div class="case-item__result-pill">Telegram: 0 → 1 840 подписчиков за 2 месяца</div>
-        </div>
-
-        <div class="case-item__body">
-          <div class="case-item__left">
-            <h3>«Я писала в пустоту 2 года. Качественный контент, глубокие разборы — и 80 подписчиков. Я думала, что астрология просто не продаётся онлайн»</h3>
-            <div class="case-block case-block--before">
-              <p class="case-block__title">Было</p>
-              <p>Виктория — астролог с системным образованием, совмещает западную и ведическую традиции. Писала длинные разборы планетарных транзитов, делала честный и глубокий контент. Но аудитория не росла. Причина — в отсутствии чёткого голоса и непонимании, кому именно она пишет. Монетизации не было вообще.</p>
-              <ul class="case-facts">
-                <li>Контент без адресата — не читается, не репостится</li>
-                <li>Нет продуктовой линейки — непонятно, «как купить»</li>
-                <li>Нет понимания своего уникального голоса в теме</li>
-                <li>2 года работы — 0 дохода с блога</li>
-              </ul>
-            </div>
-          </div>
-          <div class="case-item__right">
-            <div class="case-block case-block--after">
-              <p class="case-block__title">Стало</p>
-              <p>Определили аудиторию: женщины 28–42, которые используют астрологию как инструмент самопознания и планирования — не как магию, а как систему. Прописали голос, создали контент-систему для Telegram, разработали линейку продуктов: от бесплатного лид-магнита до персонального разбора за €120.</p>
-              <ul class="case-facts case-facts--after">
-                <li>Telegram-канал вырос с 80 до 1 840 подписчиков за 8 недель</li>
-                <li>Запущен лид-магнит: «Твой астро-профиль за 5 минут» — 430 скачиваний</li>
-                <li>Первые продажи персональных разборов: 14 клиентов в первый месяц</li>
-                <li>Выручка первого месяца: €1 680 — с нуля</li>
-              </ul>
-            </div>
-            <blockquote class="case-quote">
-              «Я наконец поняла, что дело было не в качестве контента. Дело было в том, что я не понимала, для кого пишу. Теперь понимаю — и это всё изменило.»
-              <cite>— Виктория М., астролог</cite>
-            </blockquote>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════ МИССИЯ ══════════ -->
-<section class="sec sec--navy">
-  <div class="container">
-    <div class="sec__hd fade-in">
-      <span class="label" style="color:var(--gold)">Моя миссия</span>
-      <h2>Помогаю экспертам раскрыть свою уникальность и масштабироваться через силу бренда и технологий.</h2>
-    </div>
-
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px" class="fade-in">
-      <div style="text-align:center;padding:24px 16px">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
-          <path d="M20 34 C20 34 8 24 8 14a6 6 0 0 1 12 0c0 6-6 12-6 12"/><path d="M20 34s12-10 12-20a6 6 0 0 0-12 0"/>
-        </svg>
-        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Глубина и смыслы</p>
-        <p style="font-size:14px;opacity:.75;line-height:1.65">Карта смыслов, распаковка, цифровая психология — всё строится на ценностях конкретного человека</p>
       </div>
-      <div style="text-align:center;padding:24px 16px">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
-          <path d="M20 6 L24 16 L34 16 L26 22 L29 32 L20 26 L11 32 L14 22 L6 16 L16 16 Z"/>
-        </svg>
-        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Эстетика и красота</p>
-        <p style="font-size:14px;opacity:.75;line-height:1.65">Премиальный визуал, гармония, editorial-стиль — бренд должен ощущаться, а не только читаться</p>
+
+      <div class="case-showcase__grid">
+        <div class="case-photo-wrap">
+          <img class="case-photo" id="casePhoto" src="assets/client-maria.png" alt="Мария, клинический психолог">
+        </div>
+
+        <div class="case-card">
+          <div class="case-card__meta">
+            <h3 class="case-card__name" id="caseName">Мария</h3>
+            <p class="case-card__role" id="caseRole">Прага, Чехия · Клинический психолог</p>
+          </div>
+
+          <blockquote class="case-card__quote" id="caseQuote"></blockquote>
+
+          <div class="case-panel">
+            <span class="case-panel__label" id="casePhaseLabel">До</span>
+            <p id="caseText"></p>
+          </div>
+
+          <div class="case-actions">
+            <button class="case-arrow" type="button" id="casePrev" aria-label="Предыдущий клиент">←</button>
+            <button class="case-phase active" type="button" data-phase="before">До</button>
+            <button class="case-phase" type="button" data-phase="after">После</button>
+            <button class="case-arrow" type="button" id="caseNext" aria-label="Следующий клиент">→</button>
+          </div>
+        </div>
       </div>
-      <div style="text-align:center;padding:24px 16px">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
-          <rect x="8" y="8" width="24" height="24" rx="4"/>
-          <text x="20" y="24" text-anchor="middle" fill="currentColor" stroke="none" font-size="10" font-family="Manrope,sans-serif" font-weight="700">AI</text>
-        </svg>
-        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Технологии и AI</p>
-        <p style="font-size:14px;opacity:.75;line-height:1.65">Команда ИИ-агентов забирает рутину — время остаётся для души, клиентов и стратегии</p>
-      </div>
-      <div style="text-align:center;padding:24px 16px">
-        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.2" style="margin:0 auto 16px;color:var(--gold)">
-          <polyline points="6,30 14,22 20,26 28,14 34,18"/>
-          <line x1="6" y1="34" x2="34" y2="34"/>
-        </svg>
-        <p style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px">Рост и результат</p>
-        <p style="font-size:14px;opacity:.75;line-height:1.65">Конкретные шаги, запуски, цифры и видимость — не вечное «слушание без действия»</p>
+
+      <div class="case-progress" aria-hidden="true">
+        <div class="case-progress__bar" id="caseProgress"></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -2139,56 +2211,68 @@
 <section class="sec sec--beige" id="faq">
   <div class="container">
     <div class="sec__hd fade-in">
-      <span class="label">Вопросы и ответы</span>
-      <h2>Часто задаваемые вопросы</h2>
+      <span class="label">Вопрос-ответ</span>
+      <h2>Частые вопросы перед началом работы</h2>
     </div>
 
     <div class="faq-list fade-in">
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Нужен ли мне сайт, если у меня нет личного бренда?
+          Как понять, какой формат мне сейчас подходит?
           <span class="faq-icon">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
           </span>
         </button>
         <div class="faq-body">
-          <p>Сайт без личного бренда — это просто страница в интернете без смысла. Мы всегда начинаем с распаковки личности и стратегии, а уже потом создаём сайт, который становится живым отражением твоей уникальности. Но если у тебя уже есть понимание себя — мы можем начать с сайта как с отдельного проекта. Первый шаг — диагностическая сессия, которая покажет, с чего именно стоит начать тебе.</p>
+          <p>Если вы не уверены, с чего начать, мы определим это на диагностической сессии. Иногда достаточно одной распаковки, иногда нужен полный путь от смыслов до стратегии и визуального позиционирования.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Чем Kati Agency отличается от маркетингового агентства?
+          Что происходит на диагностической сессии?
           <span class="faq-icon">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
           </span>
         </button>
         <div class="faq-body">
-          <p>Маркетинговые агентства работают с тем, что есть — упаковывают и продвигают. Мы идём глубже: сначала помогаем человеку понять себя, найти свои смыслы и уникальность через авторский метод SOUL, и только потом создаём маркетинг. Это не про «красивую картинку» — это про бренд, который невозможно скопировать, потому что он основан на настоящем человеке. Мы AI Media Agency нового поколения, где психология личности, стратегия и технологии работают как единая система.</p>
+          <p>За 30-60 минут мы определяем вашу точку А, находим главные ограничения и понимаем, что сейчас больше всего мешает росту, проявленности и продажам.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Подойдёт ли мне этот подход, если я не люблю продавать?
+          Чем распаковка отличается от стратегической сессии?
           <span class="faq-icon">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
           </span>
         </button>
         <div class="faq-body">
-          <p>Именно для тебя. Нелюбовь к продажам чаще всего возникает, когда человек предлагает что-то «не своё» — шаблон, который не совпадает с его ценностями. Когда бренд построен на настоящей уникальности, продажи становятся естественным продолжением общения. Ты просто делишься собой — и нужные люди приходят сами. Мы помогаем выстроить именно такую систему.</p>
+          <p>Распаковка помогает увидеть вашу глубину, уникальность, сильные стороны и смыслы. Стратегическая сессия переводит это в конкретный план действий, позиционирование, продукты и контент.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-btn" aria-expanded="false">
-          Сколько времени занимает работа?
+          Подойдёт ли мне SOUL Method Workbook?
           <span class="faq-icon">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
           </span>
         </button>
         <div class="faq-body">
-          <p>Всё зависит от формата. Диагностическая сессия — 40–60 минут. Глубокая распаковка и карта смыслов — 60–90 минут плюс несколько дней на подготовку материалов. Индивидуальное сопровождение по созданию экосистемы бренда занимает от 1 до 3 месяцев в зависимости от объёма. Конкретные сроки и состав работ мы всегда обсуждаем индивидуально на стратегической или диагностической сессии.</p>
+          <p>Да, если вы хотите самостоятельно разобраться в своей экспертности, сильных сторонах и позиционировании. Воркбук помогает увидеть то, что часто остаётся незамеченным даже у опытных специалистов.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Можно ли пройти только воркбук без личной работы?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Да. Воркбук — это самостоятельный инструмент. Но если вам нужна обратная связь, глубина и персональная стратегия, лучше дополнить его личной работой.</p>
         </div>
       </div>
 
@@ -2200,7 +2284,55 @@
           </span>
         </button>
         <div class="faq-body">
-          <p>Да, мы работаем полностью онлайн. Все сессии проходят в Zoom или другом удобном формате видеосвязи. Все материалы, карты смыслов, стратегии и готовые продукты передаются в цифровом формате. Мы работаем с клиентами из любой страны мира — география не ограничивает.</p>
+          <p>Да. Все форматы доступны онлайн из любой точки мира.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Я уже проходил(а) распаковки. Будет ли польза?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Большинство клиентов приходят именно после других обучений, консультаций и распаковок. Мы не собираем факты о вас — мы выстраиваем целостную систему личного бренда вокруг вашей личности и опыта.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Что если я пока не понимаю свою уникальность?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Это самая частая ситуация. Обычно человек видит свои сильные стороны как что-то обычное. Именно поэтому со стороны их гораздо легче обнаружить и превратить в основу сильного бренда.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Нужно ли иметь большую аудиторию или опыт?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Нет. Работа подходит как начинающим экспертам, так и тем, кто уже ведёт практику, но чувствует, что его масштаб и ценность не отражены в позиционировании.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false">
+          Что я получу после работы?
+          <span class="faq-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="2" x2="6" y2="10"/><line x1="2" y1="6" x2="10" y2="6"/></svg>
+          </span>
+        </button>
+        <div class="faq-body">
+          <p>Чёткое понимание своей уникальности, сильных сторон, позиционирования, аудитории и дальнейших шагов для развития личного бренда и экспертного проекта.</p>
         </div>
       </div>
     </div>
@@ -2217,8 +2349,7 @@
   </h2>
   <p class="fade-in fade-in--delay-2">Возможно, внутри тебя уже есть всё необходимое для реализации. Иногда нужен человек, который поможет это увидеть, собрать в систему и превратить в понятный путь.</p>
   <div class="final-cta__btns fade-in fade-in--delay-3">
-    <a href="https://t.me/katrina_zhur6" class="btn btn--gold" target="_blank" rel="noopener">Записаться на диагностическую сессию</a>
-    <a href="https://t.me/katrina_zhur6" class="btn btn--outline-light" target="_blank" rel="noopener">Написать в Telegram →</a>
+    <a href="https://ig.me/m/katrina.zhur" class="btn btn--gold js-copy-message" target="_blank" rel="noopener" data-copy-message="Прошу записать меня на диагностическую сессию">Записаться на диагностическую сессию</a>
   </div>
 </section>
 
@@ -2232,21 +2363,21 @@
       </a>
       <p class="ftr__tagline">Соединяю душу эксперта и AI</p>
       <div class="ftr__socials">
-        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+        <a href="https://www.instagram.com/katrina.zhur?igsh=MWsxdmh6N2VzZnV2Mw%3D%3D&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <rect x="2" y="2" width="20" height="20" rx="5"/>
             <circle cx="12" cy="12" r="4"/>
             <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
           </svg>
         </a>
-        <a href="https://t.me/katrina_zhur6" target="_blank" rel="noopener" aria-label="Telegram">
+        <a href="https://t.me/Katrina_zhur" target="_blank" rel="noopener" aria-label="Telegram">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
           </svg>
         </a>
-        <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="YouTube">
+        <a href="https://www.linkedin.com/in/katsiaryna-zhurauliova-1b304a208" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/>
+            <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.4 8.1h4.2V23H.4V8.1zM8.1 8.1h4v2.04h.06c.56-1.06 1.94-2.18 3.99-2.18 4.27 0 5.05 2.81 5.05 6.46V23H17v-7.61c0-1.82-.03-4.15-2.53-4.15-2.53 0-2.92 1.98-2.92 4.02V23H8.1V8.1z"/>
           </svg>
         </a>
       </div>
@@ -2254,6 +2385,8 @@
     <p class="ftr__bottom">© 2026 Kati Agency · Катрин Журавлёва · AI Media Agency нового поколения для экспертов мягких ниш</p>
   </div>
 </footer>
+
+<div class="ig-toast" id="igToast" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <script>
   /* ─ Бургер ─ */
@@ -2274,6 +2407,54 @@
     nav.classList.remove('nav--open');
     burger.querySelectorAll('span').forEach(s => s.style.cssText = '');
   }));
+
+  /* ─ Instagram Direct helper ─ */
+  const igToast = document.getElementById('igToast');
+  let igToastTimer;
+
+  function showIgToast(message) {
+    if (!igToast) return;
+    igToast.textContent = `«${message}» скопировано — вставьте в Direct Instagram`;
+    igToast.classList.add('is-visible');
+    clearTimeout(igToastTimer);
+    igToastTimer = setTimeout(() => igToast.classList.remove('is-visible'), 5200);
+  }
+
+  async function copyIgMessage(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.select();
+      const ok = document.execCommand('copy');
+      temp.remove();
+      return ok;
+    }
+  }
+
+  document.querySelectorAll('.js-copy-message').forEach(link => {
+    link.addEventListener('click', async (e) => {
+      const message = link.dataset.copyMessage;
+      if (!message) return;
+      e.preventDefault();
+
+      await copyIgMessage(message);
+      showIgToast(message);
+
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isMobile) {
+        window.location.href = link.href;
+      } else {
+        window.open(link.href, '_blank', 'noopener');
+      }
+    });
+  });
 
   /* ─ Header scroll shadow ─ */
   const hdr = document.getElementById('hdr');
@@ -2298,6 +2479,124 @@
     { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+
+  /* ─ Cases carousel ─ */
+  (function () {
+    const root = document.getElementById('caseShowcase');
+    if (!root) return;
+
+    const cases = [
+      {
+        name: 'Мария',
+        role: 'Прага, Чехия · клинический психолог с 20-летним стажем',
+        photo: 'assets/client-maria.png',
+        alt: 'Мария, клинический психолог',
+        quote: '«Я знала, что помогаю людям. Но не могла объяснить — чем именно я отличаюсь от других психологов.»',
+        before: 'Мария — клинический психолог с большим стажем, глубиной и реальными результатами у клиентов. Но на вопрос «кто твой клиент и почему именно ты?» — терялась. Контент был хаотичным, клиенты приходили в основном по рекомендациям, ценность своей работы она не могла показать ясно.',
+        after: 'Мы нашли точное позиционирование: психолог для женщин в точках перемен. Собрали карту смыслов, язык бренда, структуру лендинга и контентную систему. Мария стала понятной для своей аудитории, перестала занижать ценность и получила первые органические заявки с сайта.'
+      },
+      {
+        name: 'Ольга',
+        role: 'Вроцлав, Польша · энергопрактик',
+        photo: 'assets/client-olga.png',
+        alt: 'Ольга, энергопрактик',
+        quote: '«Я работаю с энергией уже 6 лет, но мне стыдно было говорить об этом публично — боялась, что не поймут.»',
+        before: 'Ольга работала с телесными блоками и родовыми программами, но в публичности словно зажималась. Ей не хватало слов, чтобы объяснить свою работу нормальным языком и при этом не потерять глубину. Продукт существовал только в формате личных сессий.',
+        after: 'Мы перевели её метод в понятный язык: помогаю женщинам перестать повторять чужой сценарий и начать жить своей жизнью. На этой базе появился групповой онлайн-интенсив, прогрев в Telegram и продающая страница. Первый поток собрал 11 участниц.'
+      },
+      {
+        name: 'Натали',
+        role: 'Лион, Франция · таролог, расстановщик, игропрактик',
+        photo: 'assets/client-natali.png',
+        alt: 'Натали, таролог',
+        quote: '«Я делала расклады уже 7 лет. Клиенты обожали меня. Но я не понимала, почему меня не воспринимают как настоящего эксперта.»',
+        before: 'Натали делала глубокую работу на стыке Таро, психологии, расстановок и игровых практик, но внешне бренд выглядел как тысячи похожих эзотерических страниц. Её воспринимали как «просто таролога», а не как эксперта, который помогает принимать решения.',
+        after: 'Мы переупаковали формат в Таро-анализ для принятия стратегических решений, убрали визуальный шум и прописали позиционирование для думающих клиентов. Цена сессии выросла, запись заполнилась вперёд, появился первый цифровой продукт.'
+      },
+      {
+        name: 'Анита',
+        role: 'Словакия · коуч ICF',
+        photo: 'assets/client-anita.png',
+        alt: 'Анита, коуч ICF',
+        quote: '«Я прошла 4 курса по продвижению. Везде говорили разное. В итоге я делала всё — и ничего не работало.»',
+        before: 'Анита — коуч ICF с корпоративным бэкграундом. Она пробовала разные ниши, вела блог, снимала контент и запускала офферы, но всё выглядело разрозненно. Много знаний, много действий — и ощущение, что система так и не собирается.',
+        after: 'На сессии мы нашли её сильную территорию: помогать специалистам переходить из найма в собственный проект без потери дохода. Создали лендинг, 90-дневную программу и подключили AI-логику первичной коммуникации. Первый запуск принёс €4 200.'
+      }
+    ];
+
+    const avatars  = document.getElementById('caseAvatars');
+    const indexEl  = document.getElementById('caseIndex');
+    const photoEl  = document.getElementById('casePhoto');
+    const nameEl   = document.getElementById('caseName');
+    const roleEl   = document.getElementById('caseRole');
+    const quoteEl  = document.getElementById('caseQuote');
+    const labelEl  = document.getElementById('casePhaseLabel');
+    const textEl   = document.getElementById('caseText');
+    const progress = document.getElementById('caseProgress');
+    const phases   = root.querySelectorAll('.case-phase');
+    let active = 0;
+    let phase = 'before';
+
+    function renderQuote(text) {
+      quoteEl.innerHTML = '';
+      text.split(/\s+/).forEach((word, i) => {
+        const span = document.createElement('span');
+        span.textContent = word;
+        span.style.animationDelay = `${i * 0.03}s`;
+        quoteEl.appendChild(span);
+      });
+    }
+
+    function renderAvatars() {
+      avatars.innerHTML = '';
+      cases.forEach((item, i) => {
+        const btn = document.createElement('button');
+        btn.className = `case-avatar${i === active ? ' active' : ''}`;
+        btn.type = 'button';
+        btn.setAttribute('aria-label', `Открыть кейс: ${item.name}`);
+        btn.innerHTML = `<img src="${item.photo}" alt="">`;
+        btn.addEventListener('click', () => { active = i; phase = 'before'; render(); });
+        avatars.appendChild(btn);
+      });
+    }
+
+    function render() {
+      const item = cases[active];
+      photoEl.classList.add('is-switching');
+      window.setTimeout(() => {
+        photoEl.src = item.photo;
+        photoEl.alt = item.alt;
+        photoEl.classList.remove('is-switching');
+      }, 130);
+
+      indexEl.textContent = String(active + 1).padStart(2, '0');
+      nameEl.textContent = item.name;
+      roleEl.textContent = item.role;
+      labelEl.textContent = phase === 'before' ? 'До' : 'После';
+      textEl.textContent = item[phase];
+      progress.style.width = `${((active + 1) / cases.length) * 100}%`;
+      renderQuote(item.quote);
+      renderAvatars();
+      phases.forEach(btn => btn.classList.toggle('active', btn.dataset.phase === phase));
+    }
+
+    document.getElementById('casePrev')?.addEventListener('click', () => {
+      active = (active - 1 + cases.length) % cases.length;
+      phase = 'before';
+      render();
+    });
+    document.getElementById('caseNext')?.addEventListener('click', () => {
+      active = (active + 1) % cases.length;
+      phase = 'before';
+      render();
+    });
+    phases.forEach(btn => btn.addEventListener('click', () => {
+      phase = btn.dataset.phase;
+      render();
+    }));
+
+    render();
+  })();
 
   /* ─ Ink Reveal (approach section) ─ */
   (function() {
@@ -2590,3 +2889,4 @@ void main(void){
 
 </body>
 </html>
+
