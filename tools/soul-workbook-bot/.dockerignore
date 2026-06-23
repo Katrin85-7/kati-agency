@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+data/
+__pycache__/
+*.pyc
+*.pyo
+*.md
+*.bat
+*.ps1
+apply_covers.py
+fix_cover_padding.py
+fix_photo_css.py
+.git/
+.gitignore

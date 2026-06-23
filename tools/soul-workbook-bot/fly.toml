@@ -1,0 +1,24 @@
+# Fly.io · Soul Method workbook bot · 24/7 polling
+# Деплой: .\DEPLOY-FLY.ps1
+
+app = 'soul-method-workbook-bot'
+primary_region = 'ams'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[env]
+  PDF_DIR = '/app/pdfs'
+  DATA_DIR = '/data'
+  MAX_CODE_ATTEMPTS = '5'
+
+[processes]
+  app = 'python bot.py'
+
+[[mounts]]
+  source = 'bot_data'
+  destination = '/data'
+
+[[vm]]
+  size = 'shared-cpu-1x'
+  memory = '512mb'
