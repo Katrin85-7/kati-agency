@@ -247,14 +247,26 @@ async def run_polling(dp: Dispatcher, bot: Bot) -> None:
     await dp.start_polling(bot)
 
 
+async def _register_webhook(bot: Bot, webhook_url: str) -> None:
+    while True:
+        try:
+            await bot.set_webhook(
+                webhook_url,
+                secret_token=WEBHOOK_SECRET_SAFE,
+                drop_pending_updates=True,
+            )
+            logger.info("Webhook registered: %s", webhook_url)
+            return
+        except Exception as exc:
+            logger.warning("Webhook register failed (%s), retry in 15s", exc)
+            await asyncio.sleep(15)
+
+
 async def run_webhook(dp: Dispatcher, bot: Bot) -> None:
     from aiohttp import web
     from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
-    base = WEBHOOK_URL.rstrip("/")
-    if not base.startswith("http"):
-        base = f"https://{base}"
-    webhook_url = f"{base}{WEBHOOK_PATH}"
+    webhook_url = f"{WEBHOOK_URL.rstrip('/')}{WEBHOOK_PATH}"
     logger.info("Webhook mode: %s", webhook_url)
 
     app = web.Application()
@@ -275,12 +287,7 @@ async def run_webhook(dp: Dispatcher, bot: Bot) -> None:
     await site.start()
     logger.info("Listening on 0.0.0.0:%s", PORT)
 
-    await bot.set_webhook(
-        webhook_url,
-        secret_token=WEBHOOK_SECRET_SAFE,
-        drop_pending_updates=True,
-    )
-    logger.info("Webhook registered: %s", webhook_url)
+    asyncio.create_task(_register_webhook(bot, webhook_url))
 
     await asyncio.Event().wait()
 

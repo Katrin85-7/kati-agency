@@ -23,9 +23,29 @@ DATA_DIR = Path(os.getenv("DATA_DIR", str(Path(__file__).resolve().parent / "dat
 MAX_CODE_ATTEMPTS = int(os.getenv("MAX_CODE_ATTEMPTS", "5"))
 PORT = int(os.getenv("PORT", "8080"))
 WEBHOOK_PATH = os.getenv("WEBHOOK_PATH", "/webhook").strip() or "/webhook"
-WEBHOOK_URL = os.getenv("WEBHOOK_URL", "").strip().rstrip("/")
-if not WEBHOOK_URL and os.getenv("RENDER"):
-    WEBHOOK_URL = "https://soul-method-workbook-bot.onrender.com"
+
+RENDER_PUBLIC_URL = "https://soul-method-workbook-bot.onrender.com"
+
+
+def _normalize_webhook_base(raw: str) -> str:
+    from urllib.parse import urlparse
+
+    value = raw.strip().rstrip("/")
+    if not value:
+        return ""
+    if not value.startswith("http"):
+        value = f"https://{value}"
+    host = urlparse(value).netloc
+    if not host or "." not in host:
+        return ""
+    return f"https://{host}"
+
+
+if os.getenv("RENDER"):
+    # На Render всегда фиксированный публичный URL (env из Blueprint часто ломается).
+    WEBHOOK_URL = RENDER_PUBLIC_URL
+else:
+    WEBHOOK_URL = _normalize_webhook_base(os.getenv("WEBHOOK_URL", ""))
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "").strip()
 
 
