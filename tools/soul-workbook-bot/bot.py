@@ -269,17 +269,18 @@ async def run_webhook(dp: Dispatcher, bot: Bot) -> None:
     handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
 
-    await bot.set_webhook(
-        webhook_url,
-        secret_token=WEBHOOK_SECRET_SAFE,
-        drop_pending_updates=True,
-    )
-
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", PORT)
     await site.start()
     logger.info("Listening on 0.0.0.0:%s", PORT)
+
+    await bot.set_webhook(
+        webhook_url,
+        secret_token=WEBHOOK_SECRET_SAFE,
+        drop_pending_updates=True,
+    )
+    logger.info("Webhook registered: %s", webhook_url)
 
     await asyncio.Event().wait()
 

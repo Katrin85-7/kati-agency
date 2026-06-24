@@ -24,6 +24,8 @@ MAX_CODE_ATTEMPTS = int(os.getenv("MAX_CODE_ATTEMPTS", "5"))
 PORT = int(os.getenv("PORT", "8080"))
 WEBHOOK_PATH = os.getenv("WEBHOOK_PATH", "/webhook").strip() or "/webhook"
 WEBHOOK_URL = os.getenv("WEBHOOK_URL", "").strip().rstrip("/")
+if not WEBHOOK_URL and os.getenv("RENDER"):
+    WEBHOOK_URL = "https://soul-method-workbook-bot.onrender.com"
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "").strip()
 
 

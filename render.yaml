@@ -14,10 +14,7 @@ services:
       - key: ACCESS_CODE
         value: SOUL-KATI-2026
       - key: WEBHOOK_URL
-        fromService:
-          type: web
-          name: soul-method-workbook-bot
-          property: host
+        value: https://soul-method-workbook-bot.onrender.com
       - key: WEBHOOK_SECRET
         value: SoulMethod-Kati-2026-wh
       - key: PDF_DIR
