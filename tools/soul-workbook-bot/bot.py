@@ -30,7 +30,7 @@ from config import (
     PDF_DIR,
     PORT,
     WEBHOOK_PATH,
-    WEBHOOK_SECRET,
+    WEBHOOK_SECRET_SAFE,
     WEBHOOK_URL,
     validate_config,
 )
@@ -264,14 +264,14 @@ async def run_webhook(dp: Dispatcher, bot: Bot) -> None:
     handler = SimpleRequestHandler(
         dispatcher=dp,
         bot=bot,
-        secret_token=WEBHOOK_SECRET or None,
+        secret_token=WEBHOOK_SECRET_SAFE,
     )
     handler.register(app, path=WEBHOOK_PATH)
     setup_application(app, dp, bot=bot)
 
     await bot.set_webhook(
         webhook_url,
-        secret_token=WEBHOOK_SECRET or None,
+        secret_token=WEBHOOK_SECRET_SAFE,
         drop_pending_updates=True,
     )
 

@@ -27,6 +27,19 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL", "").strip().rstrip("/")
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "").strip()
 
 
+def telegram_webhook_secret(raw: str) -> str | None:
+    """Telegram allows only A-Z, a-z, 0-9, _, - in webhook secret_token."""
+    import re
+
+    cleaned = re.sub(r"[^A-Za-z0-9_-]", "", raw.strip())
+    if 1 <= len(cleaned) <= 256:
+        return cleaned
+    return None
+
+
+WEBHOOK_SECRET_SAFE = telegram_webhook_secret(WEBHOOK_SECRET)
+
+
 def validate_config() -> None:
     if not BOT_TOKEN:
         raise SystemExit(

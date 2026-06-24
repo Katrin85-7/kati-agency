@@ -19,7 +19,7 @@ services:
           name: soul-method-workbook-bot
           property: host
       - key: WEBHOOK_SECRET
-        generateValue: true
+        value: SoulMethod-Kati-2026-wh
       - key: PDF_DIR
         value: /app/pdfs
       - key: DATA_DIR
